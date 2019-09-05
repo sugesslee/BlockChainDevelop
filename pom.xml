@@ -14,6 +14,10 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.4.RELEASE</version>
         <relativePath/>
+        <!--        <groupId>com.alipay.sofa</groupId>-->
+        <!--        <artifactId>sofaboot-dependencies</artifactId>-->
+        <!--        <version>3.2.0</version>-->
+        <!--        <relativePath/>-->
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,13 +27,11 @@
     </properties>
     <!-- 模块说明：这里声明多个子模块 -->
     <modules>
-        <module>block-chain-entity</module>
-        <!--        <module>block-chain-repo</module>-->
-        <!--        <module>block-chain-service</module>-->
-        <module>block-chain-utils</module>
-        <module>block-chain-common</module>
-        <module>block-chain-p2p</module>
-        <!--        <module>block-chain-web</module>-->
+        <module>BlockChainDevelop-utils</module>
+        <module>BlockChainDevelop-p2p</module>
+        <module>BlockChainDevelop-common</module>
+        <module>BlockChainDevelop-entity</module>
+        <module>BlockChainDevelop-service</module>
     </modules>
     <dependencies>
         <dependency>

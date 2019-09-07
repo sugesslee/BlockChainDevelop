@@ -1,4 +1,4 @@
-package com.nwnu.blockchain.rpc;
+package com.nwnu.blockchain.rpc.rest;
 
 import com.alipay.sofa.rpc.api.context.RpcContextManager;
 import lombok.extern.slf4j.Slf4j;

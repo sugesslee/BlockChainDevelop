@@ -1,4 +1,4 @@
-package com.nwnu.blockchain.rpc;
+package com.nwnu.blockchain.rpc.rest;
 
 import javax.annotation.Resource;
 import javax.ws.rs.Consumes;

@@ -1,6 +1,4 @@
-package com.nwnu.blockchain.rpc;
-
-import lombok.Data;
+package com.nwnu.blockchain.rpc.rest;
 
 import java.io.Serializable;
 

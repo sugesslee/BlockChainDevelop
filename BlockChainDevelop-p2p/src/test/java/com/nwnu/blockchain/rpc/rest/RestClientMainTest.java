@@ -1,8 +1,10 @@
-package com.nwnu.blockchain.rpc;
+package com.nwnu.blockchain.rpc.rest;
 
 import com.alipay.sofa.rpc.config.ApplicationConfig;
 import com.alipay.sofa.rpc.config.ConsumerConfig;
 import com.alipay.sofa.rpc.context.RpcRuntimeContext;
+import com.nwnu.blockchain.rpc.rest.ExampleObj;
+import com.nwnu.blockchain.rpc.rest.RestService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ import java.util.List;
  * @since 1.0.0
  */
 @Slf4j
-public class RestClientTest {
+public class RestClientMainTest {
 	public static void main(String[] args) throws InterruptedException {
 		ApplicationConfig applicationConfig = new ApplicationConfig().setAppName("test-api");
 		ConsumerConfig<RestService> consumerConfig = new ConsumerConfig<RestService>()

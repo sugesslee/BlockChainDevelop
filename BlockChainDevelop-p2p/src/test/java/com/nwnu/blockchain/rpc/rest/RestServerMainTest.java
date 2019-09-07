@@ -1,11 +1,12 @@
-package com.nwnu.blockchain.rpc;
+package com.nwnu.blockchain.rpc.rest;
 
 import com.alipay.sofa.rpc.config.ApplicationConfig;
 import com.alipay.sofa.rpc.config.ProviderConfig;
 import com.alipay.sofa.rpc.config.ServerConfig;
 import com.alipay.sofa.rpc.context.RpcRuntimeContext;
+import com.nwnu.blockchain.rpc.rest.RestService;
+import com.nwnu.blockchain.rpc.rest.RestServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
 
 /**
  * RestServerTest
@@ -20,8 +21,7 @@ import org.junit.Test;
  * @since 1.0.0
  */
 @Slf4j
-public class RestServerTest {
-	//	@Test
+public class RestServerMainTest {
 	public static void main(String[] args) {
 		ApplicationConfig application = new ApplicationConfig().setAppName("test-server");
 

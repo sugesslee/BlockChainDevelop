@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package com.nwnu.blockchain.protobuf;
+option java_package = "com.nwnu.blockchain.protobuf";
+option java_multiple_files = true;
+option java_generic_services = true;
+option optimize_for = SPEED;
+
+/*
+1、import "address.proto"; //引入其他的proto文件，如果是其他文件夹的文件也不需要加路径，
+只需要在生成代码时，选择proto文件的扫描范围时，需要将所有导入proro文件都包含在内。
+通过--proto_path属性指定。
+2、package com.study.blog.protobuf;  proto文件的命名空间
+3、option java_package = "com.study.blog.protobuf";//生成代码后的命令空间
+4、option java_outer_classname="Person"; //这个名字不能与下文的message名字冲突，
+Person已经是一个message类型，就不能作为ClassName
+5、option java_multiple_files = true; //如果为true，每个message和service都会被生成为一个类。
+如果是false，则所有的message和service都将会是java_outer_classname的内部类
+6、option java_generic_services = true; //是否生成Service,如果这个属性为false，
+将不会生成Service的代码，即使已经在proto文件编写了service结构
+7、option optimize_for = SPEED;//对生成的代码的一种优化，有三个值:SPEED,  CODE_SIZE, LITE_RUNTIME;
+表示希望生成代码是偏向执行速度，还是生成的文件大小，如果在app端，代码文件的大小是很重要的。
+*/
+message gps_data {
+    int64 id = 1;
+    string terminalId = 2;
+    string dataTime = 3;
+    double lon = 4;
+    double lat = 5;
+    float speed = 6;
+    int32 altitude = 7;
+    int32 locType = 8;
+    int32 gpsStatus = 9;
+    float direction = 10;
+    int32 satellite = 11;
+}
+
+/*
+protoc --proto_path=src/main/resources/protobuf --java_out=src/main/java src/main/resources/protobuf/gps_data.proto
+*/

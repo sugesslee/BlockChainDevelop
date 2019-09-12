@@ -36,6 +36,7 @@
         <module>BlockChainDevelop-entity</module>
         <module>BlockChainDevelop-service</module>
         <module>BlockChainDevelop-gRPC</module>
+        <module>BlockChainDevelop-gossip</module>
     </modules>
     <dependencies>
         <!--        <dependency>-->

@@ -6,6 +6,7 @@ import com.nwnu.blockchain.protobuf.MistralServiceGrpc;
 import io.grpc.BindableService;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import io.grpc.netty.NettyServerBuilder;
 import io.grpc.stub.StreamObserver;
 
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class MistralServer {
 	private Server server;
 
 	private void start() throws IOException {
+//		NettyServerBuilder
 		server = ServerBuilder.forPort(port)
 				.addService((BindableService) new MistralHelloWorldImpl())
 				.build()

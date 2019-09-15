@@ -21,7 +21,6 @@
             <version>3.9.0</version>
         </dependency>
 
-
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-netty</artifactId>
@@ -32,8 +31,27 @@
             <groupId>io.grpc</groupId>
             <artifactId>grpc-protobuf</artifactId>
             <version>${grpc.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>protobuf-java</artifactId>
+                    <groupId>com.google.protobuf</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>guava</artifactId>
+                    <groupId>com.google.guava</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
-
+        <!--        java.lang.UnsatisfiedLinkError: failed to load the required native library-->
+        <!--        对于非安卓的后端 Java 应用，gRPC 强烈推荐使用 OpenSSL-->
+        <!--        在开发和测试环境中，建议使用 Statically Linked 的方式（netty-tcnative-boringssl-static）-->
+        <!--        对于生产环境，则建议使用 Dynamic linked 的方式-->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-tcnative-boringssl-static</artifactId>
+            <version>2.0.25.Final</version>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-stub</artifactId>
@@ -57,6 +75,12 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>27.1-jre</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>error_prone_annotations</artifactId>
+                    <groupId>com.google.errorprone</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
     <build>

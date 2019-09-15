@@ -27,7 +27,7 @@ import io.vertx.core.json.JsonObject;
  */
 @Slf4j
 public class UDPMsgService implements MsgService {
-	DatagramSocket socket;
+	private DatagramSocket socket;
 
 	@Override
 	public void listen(String ipAddress, int port) {

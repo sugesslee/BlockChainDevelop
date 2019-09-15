@@ -163,7 +163,6 @@ public class GossipManager {
 					if (!b || liveMembers.size() <= settings.getSeedMembers().size()) {
 						gossip2Seed(syncMessageBuffer);
 					}
-
 				}
 				checkStatus();
 				if (log.isTraceEnabled()) {
@@ -281,7 +280,7 @@ public class GossipManager {
 	 * send sync message to a live member
 	 *
 	 * @param buffer sync data
-	 * @return if send to a seed member then return TURE
+	 * @return if send to a seed member then return True
 	 */
 	private boolean gossip2LiveMember(Buffer buffer) {
 		int liveSize = liveMembers.size();
@@ -316,7 +315,7 @@ public class GossipManager {
 			if (liveMembers.size() == 1) {
 				sendGossip2Seed(buffer, settings.getSeedMembers(), index);
 			} else {
-				double prob = size / Double.valueOf(liveMembers.size());
+				double prob = size / (double) liveMembers.size();
 				;
 				if (random.nextDouble() < prob) {
 					sendGossip2Seed(buffer, settings.getSeedMembers(), index);
@@ -368,8 +367,7 @@ public class GossipManager {
 	}
 
 	private SeedMember gossipMember2SeedMember(GossipMember member) {
-		SeedMember seed = new SeedMember(member.getCluster(), member.getIpAddress(), member.getPort(), member.getId());
-		return seed;
+		return new SeedMember(member.getCluster(), member.getIpAddress(), member.getPort(), member.getId());
 	}
 
 	private void checkStatus() {
@@ -383,8 +381,8 @@ public class GossipManager {
 					long now = System.currentTimeMillis();
 					long duration = now - state.getHeartbeatTime();
 					long convictedTime = convictedTime();
-					log.info("check : " + k.toString() + " state : " + state
-							.toString() + " duration : " + duration + " convictedTime : " + convictedTime);
+					log.info("check : {} state : {} duration : {} convictedTime : {}", k.toString(), state
+							.toString(), duration, convictedTime);
 					if (duration > convictedTime && (isAlive(k) || getLiveMembers().contains(k))) {
 						downing(k, state);
 					}
@@ -401,8 +399,7 @@ public class GossipManager {
 
 	private int convergenceCount() {
 		int size = getEndpointMembers().size();
-		int count = (int) Math.floor(Math.log10(size) + Math.log(size) + 1);
-		return count;
+		return (int) Math.floor(Math.log10(size) + Math.log(size) + 1);
 	}
 
 	private long convictedTime() {

@@ -20,7 +20,7 @@ import java.io.IOException;
  * @since 1.0.0
  */
 public class CustomDeserializer extends KeyDeserializer {
-	ObjectMapper mapper = new ObjectMapper();
+	private ObjectMapper mapper = new ObjectMapper();
 
 	public CustomDeserializer() {
 	}

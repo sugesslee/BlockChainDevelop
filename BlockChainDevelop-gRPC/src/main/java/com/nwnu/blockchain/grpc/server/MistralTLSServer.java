@@ -113,6 +113,7 @@ public class MistralTLSServer {
 		final MistralTLSServer server = new MistralTLSServer("localhost", 8081,
 				"/Users/red/Desktop/workspace/project/java/BlockChainDevelop/BlockChainDevelop-gRPC/openssl-keys/server.crt",
 				"/Users/red/Desktop/workspace/project/java/BlockChainDevelop/BlockChainDevelop-gRPC/openssl-keys/server.pem",
+//				"/Users/red/Desktop/workspace/project/java/BlockChainDevelop/BlockChainDevelop-gRPC/openssl-keys/ca.crt");
 				null);
 		//启动服务
 		server.start();

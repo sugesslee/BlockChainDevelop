@@ -12,6 +12,17 @@
     <artifactId>BlockChainDevelop-p2p</artifactId>
 
     <dependencies>
+        <!--t-io -->
+        <dependency>
+            <groupId>org.t-io</groupId>
+            <artifactId>tio-core</artifactId>
+            <version>3.1.4.v20180726-RELEASE</version>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.alibaba</groupId>-->
+        <!--            <artifactId>fastjson</artifactId>-->
+        <!--            <version>1.2.35</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>com.alipay.sofa</groupId>
             <artifactId>sofa-rpc-all</artifactId>
@@ -53,6 +64,12 @@
             <groupId>com.alipay.sofa</groupId>
             <artifactId>registry-client-all</artifactId>
             <version>5.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.nwnu</groupId>
+            <artifactId>BlockChainDevelop-blockchain</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

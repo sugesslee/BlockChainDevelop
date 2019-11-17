@@ -1,5 +1,6 @@
 package com.nwnu.blockchain.p2p;
 
+import com.nwnu.blockchain.p2p.vote.Const;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -47,12 +48,13 @@ public class PbftServerStart {
 	@Order(1)
 	public void start() {
 		try {
-			log.info("好未来服务端即将启动");
+			log.info("server will start.");
 
 			serverGroupContext.setHeartbeatTimeout(Const.TIMEOUT);
+//			serverGroupContext.useSsl();
 			tioServer.start(serverIp, serverPort);
 
-			log.info("好未来服务端启动完毕");
+			log.info("server start end.");
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}

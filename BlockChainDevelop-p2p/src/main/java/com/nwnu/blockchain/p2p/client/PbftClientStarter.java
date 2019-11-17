@@ -1,7 +1,7 @@
 package com.nwnu.blockchain.p2p.client;
 
-import com.nwnu.blockchain.p2p.BlockPacket;
-import com.nwnu.blockchain.p2p.Const;
+import com.nwnu.blockchain.p2p.vote.BlockPacket;
+import com.nwnu.blockchain.p2p.vote.Const;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -14,6 +14,7 @@ import org.tio.client.intf.ClientAioHandler;
 import org.tio.client.intf.ClientAioListener;
 import org.tio.core.Node;
 import org.tio.core.Tio;
+import org.tio.core.ssl.SslConfig;
 
 import javax.annotation.PostConstruct;
 
@@ -44,7 +45,8 @@ public class PbftClientStarter {
 	private ClientAioListener aioListener = null;
 
 	// 断链后自动连接的，不想自动连接请设为null
-	private ReconnConf reconnConf = new ReconnConf(5000L);
+//	private ReconnConf reconnConf = new ReconnConf(5000L);
+	private ReconnConf reconnConf = null;
 
 	// 一组连接共用的上下文对象
 	private ClientGroupContext clientGroupContext;
@@ -59,23 +61,21 @@ public class PbftClientStarter {
 	@Order(2)
 	public void start() {
 		try {
-			log.info("好未来客户端即将启动");
-
-			Thread.sleep(10*1000);
+			log.info("client will start");
 
 			//初始化
 			serverNode = new Node(Const.SERVER, Const.PORT);
 			tioClientHandler = new PbftClientAioHandler();
 			clientGroupContext = new ClientGroupContext(tioClientHandler, aioListener, reconnConf);
-
 			clientGroupContext.setHeartbeatTimeout(Const.TIMEOUT);
+//			clientGroupContext.useSsl();
 			tioClient = new TioClient(clientGroupContext);
 			clientChannelContext = tioClient.connect(serverNode);
 
 			// 连上后，发条消息测试
 			sendMessage();
 
-			log.info("好未来客户端启动完毕");
+			log.info("client start end");
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
@@ -83,7 +83,7 @@ public class PbftClientStarter {
 
 	public void sendMessage() throws Exception {
 		BlockPacket packet = new BlockPacket();
-		packet.setBody("tal say hello world to blockchain!".getBytes(BlockPacket.CHARSET));
+		packet.setBody("client say hello world to block chain!".getBytes(BlockPacket.CHARSET));
 		Tio.send(clientChannelContext, packet);
 	}
 }

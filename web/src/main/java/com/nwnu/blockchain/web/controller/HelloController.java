@@ -1,7 +1,6 @@
-package com.nwnu.blocckchain.web.controller;
+package com.nwnu.blockchain.web.controller;
 
 import com.nwnu.blockchain.p2p.client.PbftClientStarter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

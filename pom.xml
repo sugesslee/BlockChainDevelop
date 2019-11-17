@@ -10,14 +10,14 @@
     <version>1.0-SNAPSHOT</version>
     <!-- 继承说明：这里继承SpringBoot提供的父工程 -->
     <parent>
-        <!--        <groupId>org.springframework.boot</groupId>-->
-        <!--        <artifactId>spring-boot-starter-parent</artifactId>-->
-        <!--        <version>2.0.4.RELEASE</version>-->
-        <!--        <relativePath/>-->
-        <groupId>com.alipay.sofa</groupId>
-        <artifactId>sofaboot-dependencies</artifactId>
-        <version>3.2.0</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.4.RELEASE</version>
         <relativePath/>
+        <!--        <groupId>com.alipay.sofa</groupId>-->
+        <!--        <artifactId>sofaboot-dependencies</artifactId>-->
+        <!--        <version>3.2.0</version>-->
+        <!--        <relativePath/>-->
     </parent>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -38,6 +38,7 @@
         <module>BlockChainDevelop-gRPC</module>
         <module>BlockChainDevelop-gossip</module>
         <module>BlockChainDevelop-blockchain</module>
+        <module>web</module>
     </modules>
     <dependencies>
         <dependency>

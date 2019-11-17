@@ -1,4 +1,4 @@
-package com.nwnu.blockchain.p2p;
+package com.nwnu.blockchain.p2p.vote;
 
 import lombok.Data;
 import org.tio.core.intf.Packet;

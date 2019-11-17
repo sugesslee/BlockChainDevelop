@@ -1,4 +1,4 @@
-package com.nwnu.blockchain.p2p;
+package com.nwnu.blockchain.p2p.vote;
 
 /**
  * <pre>

@@ -41,57 +41,18 @@ public class ModelMetaData {
 			throw new NullPointerException("factory is not a hibernate factory");
 		}
 
-//通过EntityManager获取factory
-//		EntityManagerFactory entityManagerFactory = factory.getEntityManagerFactory();
 		SessionFactoryImpl sessionFactory = (SessionFactoryImpl) factory.unwrap(SessionFactory.class);
-		Map<String, EntityPersister> persisterMap = sessionFactory.getEntityPersisters();
-//		Map<String, EntityPersister> persisterMap = factory.getMetamodel().getManagedTypes();
+		MetamodelImplementor metamodelImplementor = sessionFactory.getMetamodel();
+		Map<String, EntityPersister> persisterMap = metamodelImplementor.entityPersisters();
 		Map<String, Class> map = new HashMap<>(persisterMap.size());
 
 		for (Map.Entry<String, EntityPersister> entity : persisterMap.entrySet()) {
 			Class targetClass = entity.getValue().getMappedClass();
 			SingleTableEntityPersister persister = (SingleTableEntityPersister) entity.getValue();
-			Iterable<AttributeDefinition> attributes = persister.getAttributes();
-//			String entityName = targetClass.getSimpleName();//Entity的名称
 			String tableName = persister.getTableName();//Entity对应的表的英文名
 
 			map.put(tableName, targetClass);
-//			System.out.println("类名：" + entityName + " => 表名：" + tableName);
-//
-//			//属性
-//			for(AttributeDefinition attr : attributes){
-//				String propertyName = attr.getName(); //在entity中的属性名称
-//				String[] columnName = persister.getPropertyColumnNames(propertyName); //对应数据库表中的字段名
-//				String type = "";
-//				PropertyDescriptor targetPd = BeanUtils.getPropertyDescriptor(targetClass, propertyName);
-//				if(targetPd != null){
-//					type = targetPd.getPropertyType().getSimpleName();
-//				}
-//				System.out.println("属性名：" + propertyName + " => 类型：" + type + " => 数据库字段名：" + columnName[0]);
-//			}
-
 		}
-//		Map<String, Class> map = new HashMap<>();
-//		return map.put(factory.getMetamodel().toString(), factory.getMetamodel().getClass());
-
-//		SessionFactory sessionFactory = factory.unwrap(SessionFactory.class);
-//
-//		Map<String, ClassMetadata> metaMap = sessionFactory.getAllClassMetadata();
-////		factory.getMetamodel();
-////		MetamodelImplementor metamodel = (MetamodelImplementor) sessionFactory.getMetamodel();
-////		ClassMetadata classMetadata = (ClassMetadata) metamodel.entityPersister(entityName);
-//		Map<String, Class> map = new HashMap<>(metaMap.size());
-//		for (String key : metaMap.keySet()) {
-//			AbstractEntityPersister classMetadata = (AbstractEntityPersister) metaMap
-//					.get(key);
-//			String tableName = classMetadata.getTableName().toLowerCase();
-//			int index = tableName.indexOf(".");
-//			if (index >= 0) {
-//				tableName = tableName.substring(index + 1);
-//			}
-//			map.put(tableName, Class.forName(key));
-//		}
 		return map;
 	}
-
 }

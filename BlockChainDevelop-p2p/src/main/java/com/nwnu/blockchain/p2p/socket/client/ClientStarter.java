@@ -73,7 +73,7 @@ public class ClientStarter {
 
 	/**
 	 * 从麦达区块链管理端获取已登记的各服务器ip
-	 * 隔5分钟去获取一次
+	 * 隔5分钟去获取一次300000
 	 */
 	@Scheduled(fixedRate = 300000)
 	public void fetchOtherServer() {
@@ -112,7 +112,7 @@ public class ClientStarter {
 	}
 
 	/**
-	 * 从麦达区块链管理端获取权限信息，一天获取一次即可
+	 * 从麦达区块链管理端获取权限信息，一天获取一次即可1000 * 60 * 60 * 24
 	 */
 	@Scheduled(fixedRate = 1000 * 60 * 60 * 24, initialDelay = 2000)
 	public void fetchPermission() {

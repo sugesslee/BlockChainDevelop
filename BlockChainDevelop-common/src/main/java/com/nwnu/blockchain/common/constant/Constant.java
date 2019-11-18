@@ -1,5 +1,7 @@
 package com.nwnu.blockchain.common.constant;
 
+import java.math.BigInteger;
+
 /**
  * ${desc}
  * <pre>

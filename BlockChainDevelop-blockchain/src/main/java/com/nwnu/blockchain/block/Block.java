@@ -2,6 +2,7 @@ package com.nwnu.blockchain.block;
 
 import cn.hutool.crypto.digest.DigestUtil;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * block
@@ -16,6 +17,7 @@ import lombok.Data;
  * @since 1.0.0
  */
 @Data
+@ToString
 public class Block {
 	/**
 	 * 区块头

@@ -1,12 +1,13 @@
 package com.nwnu.blockchain.block;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
 
 /**
- * block
+ * 区块body，里面存放交易的数组
  * <pre>
  *  Version         Date            Author          Description
  * ------------------------------------------------------------
@@ -18,6 +19,7 @@ import java.util.List;
  * @since 1.0.0
  */
 @Data
+@ToString
 public class BlockBody {
-	private List<ContentInfo> contentInfos;
+	private List<Instruction> instructions;
 }

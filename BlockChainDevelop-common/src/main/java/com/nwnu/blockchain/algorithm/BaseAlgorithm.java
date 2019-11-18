@@ -1,0 +1,63 @@
+package com.nwnu.blockchain.algorithm;
+
+import java.security.MessageDigest;
+import java.security.Security;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+/**
+ * BaseAlgorithm
+ * <pre>
+ *  Version         Date            Author          Description
+ * ------------------------------------------------------------
+ *  1.0.0           2019/11/18     red        -
+ * </pre>
+ *
+ * @author red
+ * @version 1.0.0 2019/11/18 9:39 AM
+ * @since 1.0.0
+ */
+public class BaseAlgorithm {
+	static {
+		Security.addProvider(new BouncyCastleProvider());
+	}
+
+	/**
+	 * encode bytes
+	 *
+	 * @param algorithm algorithm
+	 * @param data      data
+	 * @return byte[]
+	 */
+	public static byte[] encode(String algorithm, byte[] data) {
+		if (data == null) {
+			return null;
+		}
+		try {
+			MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
+			messageDigest.update(data);
+			return messageDigest.digest();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * encodeTwice bytes
+	 *
+	 * @param algorithm algorithm
+	 * @param data      data
+	 * @return byte[]
+	 */
+	protected static byte[] encodeTwice(String algorithm, byte[] data) {
+		if (data == null) {
+			return null;
+		}
+		try {
+			MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
+			messageDigest.update(data);
+			return messageDigest.digest(messageDigest.digest());
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+}

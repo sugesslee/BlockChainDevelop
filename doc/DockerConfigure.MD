@@ -1,41 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <artifactId>BlockChainDevelop</artifactId>
-        <groupId>com.nwnu</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    <artifactId>web</artifactId>
-    <groupId>com.nwnu.blockchain</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <name>web</name>
-    <description>Demo project for Spring Boot</description>
+# docker配置
 
-    <dependencies>
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-starter-web</artifactId>-->
-        <!--        </dependency>-->
-        <dependency>
-            <groupId>com.nwnu</groupId>
-            <artifactId>BlockChainDevelop-p2p</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-    <!--多模块打包：只需在启动类所在模块的POM文件：指定打包插件 -->
-    <build>
-        <plugins>
-            <plugin>
+## pom文件配置
+
+```
+ <plugin>
                 <!--该插件主要用途：构建可执行的JAR -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -69,7 +37,7 @@
                     <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
 
                     <!--指定远程 docker api地址-->
-                    <dockerHost>http://202.201.48.69:2375</dockerHost>
+                    <dockerHost>docker api 地址</dockerHost>
 
                     <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
                     <resources>
@@ -83,6 +51,13 @@
                     </resources>
                 </configuration>
             </plugin>
-        </plugins>
-    </build>
-</project>
+```
+
+## 操作
+
+1. 生成jar包并生成镜像上传至docker服务器
+```
+ mvn clean package -Dmaven.test.skip=true
+```
+2. 根据镜像生成容器并启动
+![生成容器](./resource/CreateDockerConfiguration.png)

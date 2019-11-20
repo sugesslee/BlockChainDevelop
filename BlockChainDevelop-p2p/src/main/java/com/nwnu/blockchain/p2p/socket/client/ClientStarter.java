@@ -78,7 +78,7 @@ public class ClientStarter {
 	@Scheduled(fixedRate = 300000)
 	public void fetchOtherServer() {
 		String localIp = GetLocalIpUtil.getLocalIp();
-		log.info("本机IP：{}", localIp);
+		log.info("APP_ID: {}, NAME: {}, IP：{}", appId, name, localIp);
 		try {
 			//如果连不上服务器，就不让启动
 			MemberData memberData = restTemplate.getForEntity(managerUrl + "member?name=" + name + "&appId=" + AppId

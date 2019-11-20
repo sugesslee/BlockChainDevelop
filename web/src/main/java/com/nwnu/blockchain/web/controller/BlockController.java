@@ -23,6 +23,7 @@ import com.nwnu.blockchain.p2p.socket.client.PacketSender;
 import com.nwnu.blockchain.p2p.socket.vote.BlockPacket;
 import com.nwnu.blockchain.p2p.socket.vote.PacketBuilder;
 import com.nwnu.blockchain.p2p.socket.vote.PacketType;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -41,6 +42,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 1.0.0
  */
 @RestController
+@Slf4j
 @RequestMapping("/block")
 public class BlockController {
 	private final BlockService blockService;
@@ -91,6 +93,7 @@ public class BlockController {
 		instructionBody.setJson("{\"content\":\"" + content + "\"}");
 		instructionBody.setPublicKey("A8WLqHTjcT/FQ2IWhIePNShUEcdCzu5dG+XrQU8OMu54");
 		instructionBody.setPrivateKey("yScdp6fNgUU+cRUTygvJG4EBhDKmOMRrK4XJ9mKVQJ8=");
+		log.info("build instruction");
 		Instruction instruction = instructionService.build(instructionBody);
 
 		BlockRequestBody blockRequestBody = new BlockRequestBody();
@@ -99,6 +102,7 @@ public class BlockController {
 		blockBody.setInstructions(CollectionUtil.newArrayList(instruction));
 
 		blockRequestBody.setBlockBody(blockBody);
+		log.info("add block");
 
 		return ResultGenerator.genSuccessResult(blockService.addBlock(blockRequestBody));
 	}

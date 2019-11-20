@@ -4,11 +4,13 @@ spring:
     database-platform: com.nwnu.blockchain.p2p.core.sqlite.config.SQLiteDialect
     generate-ddl: true
 sqlite:
-  dbName: a.db  #本地sqlite的名字
+  dbName: block.db
 db:
-  levelDB: false    #在部分Windows机器上rocksDB会报错dll找不到，那么就用levelDB来替代
+  levelDB: false
   rocksDB: true
 version: 1
-name: ${NAME:maida}
-appId: ${APP_ID:wolf}
-managerUrl: ${MANAGER_URL:http://localhost:8888/}
+# 使用一个节点
+#singeNode: ${SingeNode:false}
+name: ${NAME:test1}
+appId: ${APP_ID:test1}
+managerUrl: ${MANAGER_URL:http://202.201.48.69:8083/}

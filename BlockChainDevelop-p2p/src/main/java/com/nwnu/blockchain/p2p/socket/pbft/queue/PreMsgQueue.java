@@ -10,6 +10,7 @@ import com.nwnu.blockchain.p2p.socket.vote.VoteMsg;
 import com.nwnu.blockchain.p2p.socket.vote.VotePreMsg;
 import com.nwnu.blockchain.p2p.socket.vote.VoteType;
 import com.nwnu.blockchain.timer.TimerManager;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
@@ -33,6 +34,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 1.0.0
  */
 @Component
+@Slf4j
 public class PreMsgQueue extends BaseMsgQueue {
 	@Resource
 	private SqliteManager sqliteManager;
@@ -42,8 +44,6 @@ public class PreMsgQueue extends BaseMsgQueue {
 	private ApplicationEventPublisher eventPublisher;
 
 	private ConcurrentHashMap<String, VotePreMsg> blockConcurrentHashMap = new ConcurrentHashMap<>();
-
-	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Override
 	protected void push(VoteMsg voteMsg) {
@@ -57,7 +57,7 @@ public class PreMsgQueue extends BaseMsgQueue {
 		//但凡是能进到该push方法的，都是通过基本校验的，但在并发情况下可能会相同number的block都进到投票队列中
 		//需要对新进来的Vote信息的number进行校验，如果在比prepre阶段靠后的阶段中，已经出现了认证OK的同number的vote，则拒绝进入该队列
 		if (prepareMsgQueue.otherConfirm(hash, voteMsg.getNumber())) {
-			logger.info("拒绝进入Prepare阶段，hash为" + hash);
+			log.info("拒绝进入Prepare阶段，hash为:{}", hash);
 			return;
 		}
 		// 检测脚本是否正常
@@ -68,11 +68,12 @@ public class PreMsgQueue extends BaseMsgQueue {
 				// 执行异常
 				return;
 			} else {
-				logger.info("指令预校验执行成功！");
+				log.info("指令预校验执行成功！");
 			}
 		}
 
 		//存入Pre集合中
+		log.info("blockConcurrentHashMap.put(hash: {}, votePreMsg: {})", hash, votePreMsg);
 		blockConcurrentHashMap.put(hash, votePreMsg);
 
 		//加入Prepare行列，推送给所有人
@@ -80,6 +81,7 @@ public class PreMsgQueue extends BaseMsgQueue {
 		BeanUtil.copyProperties(voteMsg, prepareMsg);
 		prepareMsg.setVoteType(VoteType.PREPARE);
 		prepareMsg.setAppId(AppId.value);
+		log.info("加入Prepare行列，推送给所有人, prepareMsg: {}", prepareMsg);
 		eventPublisher.publishEvent(new MsgPrepareEvent(prepareMsg));
 	}
 

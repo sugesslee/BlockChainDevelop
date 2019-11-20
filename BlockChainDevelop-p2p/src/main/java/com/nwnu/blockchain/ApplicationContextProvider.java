@@ -1,9 +1,12 @@
 package com.nwnu.blockchain;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Component
+@Slf4j
 public class ApplicationContextProvider implements ApplicationContextAware {
 	private static ApplicationContext context;
 
@@ -30,6 +34,7 @@ public class ApplicationContextProvider implements ApplicationContextAware {
 	public void setApplicationContext(ApplicationContext ac)
 			throws BeansException {
 		context = ac;
+		log.info("ApplicationContextProvider set ac: {}", ac);
 	}
 
 	public static <T> T getBean(Class<T> tClass) {

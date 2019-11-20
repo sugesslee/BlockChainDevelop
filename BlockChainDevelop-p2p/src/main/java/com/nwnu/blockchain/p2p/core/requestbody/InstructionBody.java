@@ -1,5 +1,8 @@
 package com.nwnu.blockchain.p2p.core.requestbody;
 
+import lombok.Data;
+import lombok.ToString;
+
 /**
  * <pre>
  *  Version         Date            Author          Description
@@ -11,6 +14,8 @@ package com.nwnu.blockchain.p2p.core.requestbody;
  * @version 1.0.0 2019/11/18 2:39 PM
  * @since 1.0.0
  */
+@Data
+@ToString
 public class InstructionBody {
 	/**
 	 * 指令的操作，增删改
@@ -40,73 +45,4 @@ public class InstructionBody {
 	 * 公钥
 	 */
 	private String publicKey;
-
-	@Override
-	public String toString() {
-		return "InstructionBody{" +
-				"operation=" + operation +
-				", table='" + table + '\'' +
-				", json='" + json + '\'' +
-				", oldJson='" + oldJson + '\'' +
-				", instructionId='" + instructionId + '\'' +
-				", privateKey='" + privateKey + '\'' +
-				", publicKey='" + publicKey + '\'' +
-				'}';
-	}
-
-	public String getOldJson() {
-		return oldJson;
-	}
-
-	public void setOldJson(String oldJson) {
-		this.oldJson = oldJson;
-	}
-
-	public String getInstructionId() {
-		return instructionId;
-	}
-
-	public void setInstructionId(String instructionId) {
-		this.instructionId = instructionId;
-	}
-
-	public String getPublicKey() {
-		return publicKey;
-	}
-
-	public void setPublicKey(String publicKey) {
-		this.publicKey = publicKey;
-	}
-
-	public byte getOperation() {
-		return operation;
-	}
-
-	public void setOperation(byte operation) {
-		this.operation = operation;
-	}
-
-	public String getTable() {
-		return table;
-	}
-
-	public void setTable(String table) {
-		this.table = table;
-	}
-
-	public String getJson() {
-		return json;
-	}
-
-	public void setJson(String json) {
-		this.json = json;
-	}
-
-	public String getPrivateKey() {
-		return privateKey;
-	}
-
-	public void setPrivateKey(String privateKey) {
-		this.privateKey = privateKey;
-	}
 }

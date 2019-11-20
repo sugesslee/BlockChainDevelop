@@ -1,5 +1,4 @@
-# md_blockchain
-![输入图片说明](https://gitee.com/uploads/images/2018/0419/170921_7808ffdc_303698.png "1.png")
+# blockchain_p2p_pbft
 
 ### 项目说明
 主要有存储模块、网络模块、PBFT共识算法、加密模块、区块解析入库等。
@@ -70,37 +69,34 @@ Block内存储的是类Sql语句。联盟间预先设定好符合业务场景需
 
 ### 简单使用说明
 
-使用方法：先下载[md_blockchain_manager项目](https://gitee.com/tianyalei/md_blockchain_manager)，然后导入工程里的sql数据库文件，修改application.yml数据库配置，最后启动manager项目。
+使用方法：启动manager项目。
 
-然后修改md_blockchain中application.yml里的name、appid和manager项目数据库里的某个值对应，作为一个节点。如果有多个节点，则某个节点都和数据库里对应，填写各节点的ip。managerUrl就是manager项目的url，让该项目能访问到manager项目。
+根据ProgramStart.md说明配置项目启动
 
-在md_blockchian项目启动时，在ClientStarter类中可见，启动时会从manager项目拉取所有节点的数据，并进行连接。如果自己的ip和appId等不在manager数据库中，则无法启动。
+在blockchain项目启动时，在ClientStarter类中可见，启动时会从manager项目拉取所有节点的数据，并进行连接。如果自己的ip和appId等不在manager数据库中，则无法启动。
 
-可以通过访问localhost:8080/block?content=1来生成一个区块。正常使用时至少要启动4个节点才行，否则无法达成共识，PBFT要求2f+1个节点同意才能生成Block。为了方便测试，可以直接修改pbftSize的返回值为0，这样就能自己一个节点玩起来了。如果有多个节点，在生成Block后就会发现别的节点也会自动同步自己新生成的Block。目前代码里默认设置了一张表message，里面也只有一个字段content，相当于一个简单的区块链记事本。当有4个节点时，可以通过并发访问其中的几个来同时生成Block进行测试，看是否会分叉。还可以关停其中的一个，看其他的三个是否能达成共识（拜占庭最多容许f个节点故障，4个节点允许1个故障），恢复故障的那个，看是否能够同步其他正常节点的Block。可以进行各种测试，欢迎提bug。
+可以通过访问localhost:8080/block?content=1来生成一个区块。正常使用时至少要启动4个节点才行，否则无法达成共识，PBFT要求2f+1个节点同意才能生成Block。为了方便测试，可以直接修改pbftSize的返回值为0，这样就能自己一个节点玩起来了。如果有多个节点，在生成Block后就会发现别的节点也会自动同步自己新生成的Block。目前代码里默认设置了一张表message，里面也只有一个字段content，相当于一个简单的区块链记事本。当有4个节点时，可以通过并发访问其中的几个来同时生成Block进行测试，看是否会分叉。还可以关停其中的一个，看其他的三个是否能达成共识（拜占庭最多容许f个节点故障，4个节点允许1个故障），恢复故障的那个，看是否能够同步其他正常节点的Block。
 
 可以通过localhost:8080/block/sqlite来查看sqlite里存的数据，就是根据Block里的sql语句执行后的结果。
 
-我把项目部署到docker里了，共启动4个节点，如图：
-![输入图片说明](https://gitee.com/uploads/images/2018/0404/105151_c8931604_303698.png "1.png")
+我把项目部署到docker里了，共启动5个节点(最少四个)，如图：
+![输入图片说明](./resource/DockerInfo.png "1.png")
 
-manager就是md_blockchain_manager项目，主要功能就是提供联盟链内各节点ip和各节点的权限信息
-![输入图片说明](https://gitee.com/uploads/images/2018/0426/185644_23b10899_303698.png "2.png")
+manager就是blockchain_manager项目，主要功能就是提供联盟链内各节点ip和各节点的权限信息
+![输入图片说明](./resource/ConnectInfo.png "2.png")
 
 四个节点ip都写死了，都启动后，它们会相互全部连接起来，并维持住长连接和心跳包，相互交换最新的Block信息。
-![输入图片说明](https://gitee.com/uploads/images/2018/0426/190528_3f93792e_303698.png "2.png")
-
+![输入图片说明](./resource/ConnectEachOther.png "3.png")
 
 我调用一下block项目的生成区块接口，http://ip:port/block?content=1，可以看到各节点投票及pbft的各状态
-![输入图片说明](https://gitee.com/uploads/images/2018/0426/185819_06f95c59_303698.png "2.png")
+![输入图片说明](./resource/GeneratorBlock.png "4.png")
 
 别的节点会是这样，收到block项目请求生成区块的请求、并开始校验，然后进入pbft的投票状态
-![输入图片说明](https://gitee.com/uploads/images/2018/0426/190006_0bb1f8d4_303698.png "2.png")
-
-如果某节点断线了、或者是新加入的节点，从别的正常节点拉取新区块
-![输入图片说明](https://gitee.com/uploads/images/2018/0426/190201_bdfd8d19_303698.png "2.png")
+![输入图片说明](./resource/PbftPrePare.png "5.png")
+![输入图片说明](./resource/PbftCommit.png "6.png")
 
 此外还有高并发情况下，各节点同时生成Block，系统处理共识、保证区块链不分叉的一些测试。
 
-这个生成区块的接口是写好用来测试的，正常走的流程是调用instuction接口，先生产符合自己需求的指令，然后组合多个指令，调用BlockController里的生成区块接口。
+这个生成区块的接口是写好用来测试的，正常走的流程是调用instruction接口，先生产符合自己需求的指令，然后组合多个指令，调用BlockController里的生成区块接口。
 
 

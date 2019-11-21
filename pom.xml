@@ -36,9 +36,10 @@
         <module>BlockChainDevelop-common</module>
         <module>BlockChainDevelop-entity</module>
         <module>BlockChainDevelop-service</module>
-        <module>BlockChainDevelop-gRPC</module>
         <module>BlockChainDevelop-blockchain</module>
         <module>web</module>
+        <module>BlockChainDevelop-repository</module>
+        <module>BlockChainDevelop-config</module>
     </modules>
     <dependencies>
         <dependency>

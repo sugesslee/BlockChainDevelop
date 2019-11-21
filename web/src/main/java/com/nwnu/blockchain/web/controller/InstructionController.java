@@ -2,8 +2,8 @@ package com.nwnu.blockchain.web.controller;
 
 import com.nwnu.blockchain.core.bean.BaseData;
 import com.nwnu.blockchain.core.bean.ResultGenerator;
-import com.nwnu.blockchain.p2p.core.requestbody.InstructionBody;
-import com.nwnu.blockchain.p2p.core.service.InstructionService;
+import com.nwnu.blockchain.core.requestbody.InstructionBody;
+import com.nwnu.blockchain.service.InstructionService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

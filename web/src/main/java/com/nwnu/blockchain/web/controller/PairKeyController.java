@@ -3,7 +3,7 @@ package com.nwnu.blockchain.web.controller;
 import com.nwnu.blockchain.common.exception.TrustSDKException;
 import com.nwnu.blockchain.core.bean.BaseData;
 import com.nwnu.blockchain.core.bean.ResultGenerator;
-import com.nwnu.blockchain.p2p.core.service.PairKeyService;
+import com.nwnu.blockchain.service.PairKeyService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

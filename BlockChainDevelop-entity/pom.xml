@@ -15,6 +15,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <!--t-io -->
+        <dependency>
+            <groupId>org.t-io</groupId>
+            <artifactId>tio-core</artifactId>
+            <version>3.1.4.v20180726-RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nwnu</groupId>
+            <artifactId>BlockChainDevelop-blockchain</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 

@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    show-sql: false
+    database-platform: com.nwnu.blockchain.repository.sqlite.config.SQLiteDialect
+    generate-ddl: true
+sqlite:
+  dbName: block.db
+db:
+  levelDB: false
+  rocksDB: true
+version: 1
+# 使用一个节点
+singeNode: ${SingeNode:true}
+name: ${NAME:test1}
+appId: ${APP_ID:test1}
+managerUrl: ${MANAGER_URL:http://202.201.48.69:8083/}

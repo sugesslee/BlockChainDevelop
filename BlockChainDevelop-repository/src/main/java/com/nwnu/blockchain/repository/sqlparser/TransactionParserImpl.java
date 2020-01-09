@@ -1,7 +1,7 @@
 package com.nwnu.blockchain.repository.sqlparser;
 
-import com.nwnu.blockchain.block.Instruction;
-import com.nwnu.blockchain.block.InstructionBase;
+import com.nwnu.blockchain.block.Transaction;
+import com.nwnu.blockchain.block.TransactionBase;
 import com.nwnu.blockchain.core.model.base.BaseEntity;
 import com.nwnu.blockchain.core.model.convert.ConvertTableName;
 import com.nwnu.blockchain.utils.FastJsonUtil;
@@ -29,19 +29,18 @@ public class TransactionParserImpl<T extends BaseEntity> implements TransactionP
 	private AbstractSqlParser<T>[] sqlParsers;
 
 	@Override
-	public boolean parse(InstructionBase instructionBase) {
-		byte operation = instructionBase.getOperation();
-		String table = instructionBase.getTable();
-		String json = instructionBase.getOldJson();
+	public boolean parse(TransactionBase transactionBase) {
+		String table = transactionBase.getTable();
+		String json = transactionBase.getOldJson();
 		//表对应的类名，如MessageEntity.class
 		Class<T> clazz = convertTableName.convertOf(table);
 		T object = FastJsonUtil.toBean(json, clazz);
 		for (AbstractSqlParser<T> sqlParser : sqlParsers) {
 			if (clazz.equals(sqlParser.getEntityClass())) {
-				if (instructionBase instanceof Instruction) {
-					object.setPublicKey(((Instruction) instructionBase).getPublicKey());
+				if (transactionBase instanceof Transaction) {
+					object.setPublicKey(((Transaction) transactionBase).getPublicKey());
 				}
-				sqlParser.parse(operation, instructionBase.getInstructionId(), object);
+				sqlParser.parse(transactionBase.getTransactionId(), object);
 				break;
 			}
 		}

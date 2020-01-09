@@ -1,7 +1,7 @@
 package com.nwnu.blockchain.block;
 
 /**
- * Operation
+ * 一条指令用来回滚时所用
  * <pre>
  *  Version         Date            Author          Description
  * ------------------------------------------------------------
@@ -9,11 +9,8 @@ package com.nwnu.blockchain.block;
  * </pre>
  *
  * @author red
- * @version 1.0.0 2019/11/18 3:14 PM
+ * @version 1.0.0 2019/11/18 1:22 PM
  * @since 1.0.0
  */
-public interface Operation {
-	byte ADD = 1;
-	byte DELETE = -1;
-	byte UPDATE = 2;
+public class TransactionReverse extends TransactionBase {
 }

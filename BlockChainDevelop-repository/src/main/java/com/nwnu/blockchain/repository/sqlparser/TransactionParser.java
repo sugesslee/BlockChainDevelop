@@ -1,7 +1,7 @@
 package com.nwnu.blockchain.repository.sqlparser;
 
 
-import com.nwnu.blockchain.block.InstructionBase;
+import com.nwnu.blockchain.block.TransactionBase;
 
 /**
  * <pre>
@@ -15,5 +15,9 @@ import com.nwnu.blockchain.block.InstructionBase;
  * @since 1.0.0
  */
 public interface TransactionParser {
-	boolean parse(InstructionBase instructionBase);
+	/**
+	 * @param transactionBase 交易
+	 * @return boolean
+	 */
+	boolean parse(TransactionBase transactionBase);
 }

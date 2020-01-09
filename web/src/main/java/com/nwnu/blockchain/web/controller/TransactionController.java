@@ -2,15 +2,15 @@ package com.nwnu.blockchain.web.controller;
 
 import com.nwnu.blockchain.core.bean.BaseData;
 import com.nwnu.blockchain.core.bean.ResultGenerator;
-import com.nwnu.blockchain.core.requestbody.InstructionBody;
-import com.nwnu.blockchain.service.InstructionService;
+import com.nwnu.blockchain.core.requestbody.TransactionBody;
+import com.nwnu.blockchain.service.TransactionService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * InstructionController
+ * TransactionController
  * <pre>
  *  Version         Date            Author          Description
  * ------------------------------------------------------------
@@ -22,28 +22,28 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0.0
  */
 @RestController
-@RequestMapping("/instruction")
-public class InstructionController {
-	private final InstructionService instructionService;
+@RequestMapping("/transaction")
+public class TransactionController {
+	private final TransactionService transactionService;
 
-	public InstructionController(InstructionService instructionService) {
-		this.instructionService = instructionService;
+	public TransactionController(TransactionService transactionService) {
+		this.transactionService = transactionService;
 	}
 
 	/**
 	 * 构建一条指令，传入各必要参数
 	 *
-	 * @param instructionBody instructionBody
+	 * @param transactionBody transactionBody
 	 * @return 用私钥签名后的指令
 	 */
 	@PostMapping
-	public BaseData build(@RequestBody InstructionBody instructionBody) throws Exception {
-		if (!instructionService.checkKeyPair(instructionBody)) {
+	public BaseData build(@RequestBody TransactionBody transactionBody) throws Exception {
+		if (!transactionService.checkKeyPair(transactionBody)) {
 			return ResultGenerator.genFailResult("公私钥不是一对");
 		}
-		if (!instructionService.checkContent(instructionBody)) {
-			return ResultGenerator.genFailResult("Delete和Update操作需要有id和json内容");
+		if (!transactionService.checkContent(transactionBody)) {
+			return ResultGenerator.genFailResult("操作需要有id和json内容");
 		}
-		return ResultGenerator.genSuccessResult(instructionService.build(instructionBody));
+		return ResultGenerator.genSuccessResult(transactionService.build(transactionBody));
 	}
 }

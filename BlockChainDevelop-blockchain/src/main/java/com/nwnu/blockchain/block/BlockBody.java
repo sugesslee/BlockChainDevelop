@@ -21,5 +21,5 @@ import java.util.List;
 @Data
 @ToString
 public class BlockBody {
-	private List<Instruction> instructions;
+	private List<Transaction> transactions;
 }

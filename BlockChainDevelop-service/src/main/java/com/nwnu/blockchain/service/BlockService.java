@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.nwnu.blockchain.block.Block;
 import com.nwnu.blockchain.block.BlockBody;
 import com.nwnu.blockchain.block.BlockHeader;
-import com.nwnu.blockchain.block.Instruction;
+import com.nwnu.blockchain.block.Transaction;
 import com.nwnu.blockchain.common.exception.TrustSDKException;
 import com.nwnu.blockchain.core.body.RpcBlockBody;
 import com.nwnu.blockchain.core.packet.BlockPacket;
@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
 @Service
 public class BlockService {
 	@Resource
-	private InstructionService instructionService;
+	private TransactionService transactionService;
 	@Value("${version}")
 	private int version;
 	@Resource
@@ -61,24 +61,24 @@ public class BlockService {
 				.getPublicKey())) {
 			return "请求参数缺失";
 		}
-		List<Instruction> instructions = blockRequestBody.getBlockBody().getInstructions();
-		if (CollectionUtil.isEmpty(instructions)) {
+		List<Transaction> transactions = blockRequestBody.getBlockBody().getTransactions();
+		if (CollectionUtil.isEmpty(transactions)) {
 			return "指令信息不能为空";
 		}
 
-		for (Instruction instruction : instructions) {
-			if (!StrUtil.equals(blockRequestBody.getPublicKey(), instruction.getPublicKey())) {
+		for (Transaction transaction : transactions) {
+			if (!StrUtil.equals(blockRequestBody.getPublicKey(), transaction.getPublicKey())) {
 				return "指令内公钥和传来的公钥不匹配";
 			}
-			if (!instructionService.checkSign(instruction)) {
+			if (!transactionService.checkSign(transaction)) {
 				return "签名校验不通过";
 			}
-			if (!instructionService.checkHash(instruction)) {
+			if (!transactionService.checkHash(transaction)) {
 				return "Hash校验不通过";
 			}
 		}
 
-		if (!permissionManager.checkPermission(instructions)) {
+		if (!permissionManager.checkPermission(transactions)) {
 			return "权限校验不通过";
 		}
 
@@ -94,9 +94,9 @@ public class BlockService {
 	public Block addBlock(BlockRequestBody blockRequestBody) {
 		// 区块body，里面存放交易的数组
 		BlockBody blockBody = blockRequestBody.getBlockBody();
-		List<Instruction> instructions = blockBody.getInstructions();
+		List<Transaction> transactions = blockBody.getTransactions();
 		// 将交易数组中的每个交易hash组成list，存入区块头
-		List<String> hashList = instructions.stream().map(Instruction::getHash).collect(Collectors
+		List<String> hashList = transactions.stream().map(Transaction::getHash).collect(Collectors
 				.toList());
 
 		BlockHeader blockHeader = new BlockHeader();

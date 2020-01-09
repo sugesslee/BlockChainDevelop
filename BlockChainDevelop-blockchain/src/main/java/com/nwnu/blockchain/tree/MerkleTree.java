@@ -142,7 +142,7 @@ public class MerkleTree {
 
 	public List<TreeNode> getList() {
 		if (list == null) {
-			return list;
+			return null;
 		}
 		Collections.reverse(list);
 		return list;

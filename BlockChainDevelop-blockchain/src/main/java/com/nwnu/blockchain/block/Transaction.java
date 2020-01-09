@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * 区块body内一条指令
+ * 区块body内一条交易
  * <pre>
  *  Version         Date            Author          Description
  * ------------------------------------------------------------
@@ -19,9 +19,9 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @ToString
-public class Instruction extends InstructionBase {
+public class Transaction extends TransactionBase {
 	/**
-	 * 新的内容
+	 * 内容
 	 */
 	private String json;
 	/**

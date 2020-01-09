@@ -2,15 +2,15 @@ package com.nwnu.blockchain.sqlite;
 
 import com.nwnu.blockchain.ApplicationContextProvider;
 import com.nwnu.blockchain.block.Block;
-import com.nwnu.blockchain.block.Instruction;
-import com.nwnu.blockchain.block.InstructionBase;
-import com.nwnu.blockchain.block.InstructionReverse;
+import com.nwnu.blockchain.block.Transaction;
+import com.nwnu.blockchain.block.TransactionBase;
+import com.nwnu.blockchain.block.TransactionReverse;
 import com.nwnu.blockchain.core.model.SyncEntity;
 import com.nwnu.blockchain.repository.event.DbSyncEvent;
 import com.nwnu.blockchain.repository.manager.DbBlockManager;
 import com.nwnu.blockchain.repository.manager.SyncManager;
 import com.nwnu.blockchain.repository.sqlparser.TransactionParser;
-import com.nwnu.blockchain.service.InstructionService;
+import com.nwnu.blockchain.service.TransactionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -42,7 +42,7 @@ public class SqliteManager {
 	@Resource
 	private DbBlockManager dbBlockManager;
 	@Resource
-	private InstructionService instructionService;
+	private TransactionService transactionService;
 
 	/**
 	 * sqlite同步，监听该事件后，去check当前已经同步到哪个区块了，然后继续执行之后的区块
@@ -81,12 +81,12 @@ public class SqliteManager {
 	 */
 	@Transactional
 	public void execute(Block block) {
-		List<Instruction> instructions = block.getBlockBody().getInstructions();
-		//InstructionParserImpl类里面执行的是InstructionBase，需要转成InstructionBase
-		for (Instruction instruction : instructions) {
-			instruction.setOldJson(instruction.getJson());
+		List<Transaction> transactions = block.getBlockBody().getTransactions();
+		//TransactionParserImpl类里面执行的是TransactionBase，需要转成TransactionBase
+		for (Transaction transaction : transactions) {
+			transaction.setOldJson(transaction.getJson());
 		}
-		doSqlParse(instructions);
+		doSqlParse(transactions);
 
 		//保存已同步的进度
 		SyncEntity syncEntity = new SyncEntity();
@@ -100,19 +100,19 @@ public class SqliteManager {
 	 * @param block block
 	 */
 	public void rollBack(Block block) {
-		List<Instruction> instructions = block.getBlockBody().getInstructions();
-		int size = instructions.size();
+		List<Transaction> transactions = block.getBlockBody().getTransactions();
+		int size = transactions.size();
 		//需要对语句集合进行反转，然后执行和execute一样的操作
-		List<InstructionReverse> instructionReverses = new ArrayList<>(size);
+		List<TransactionReverse> transactionRevers = new ArrayList<>(size);
 		for (int i = size - 1; i >= 0; i--) {
-			instructionReverses.add(instructionService.buildReverse(instructions.get(i)));
+			transactionRevers.add(transactionService.buildReverse(transactions.get(i)));
 		}
-		doSqlParse(instructionReverses);
+		doSqlParse(transactionRevers);
 	}
 
-	private <T extends InstructionBase> void doSqlParse(List<T> instructions) {
-		for (InstructionBase instruction : instructions) {
-			transactionParser.parse(instruction);
+	private <T extends TransactionBase> void doSqlParse(List<T> transactions) {
+		for (TransactionBase transaction : transactions) {
+			transactionParser.parse(transaction);
 		}
 	}
 

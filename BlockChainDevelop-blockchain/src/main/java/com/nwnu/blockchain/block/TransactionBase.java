@@ -1,9 +1,11 @@
-package com.nwnu.blockchain.core.requestbody;
+package com.nwnu.blockchain.block;
 
 import lombok.Data;
 import lombok.ToString;
 
 /**
+ * TransactionBase
+ * blockBody内一条指令的基础属性
  * <pre>
  *  Version         Date            Author          Description
  * ------------------------------------------------------------
@@ -11,38 +13,23 @@ import lombok.ToString;
  * </pre>
  *
  * @author red
- * @version 1.0.0 2019/11/18 2:39 PM
+ * @version 1.0.0 2019/11/18 1:21 PM
  * @since 1.0.0
  */
 @Data
 @ToString
-public class InstructionBody {
-	/**
-	 * 指令的操作，增删改
-	 */
-	private byte operation;
+public class TransactionBase {
 	/**
 	 * 操作的表名
 	 */
 	private String table;
 	/**
-	 * 具体内容
-	 */
-	private String json;
-	/**
-	 * 原始内容
+	 * 最终要执行入库的json内容
 	 */
 	private String oldJson;
 	/**
-	 * 业务id
+	 * 业务id，sql语句中where需要该Id
 	 */
-	private String instructionId;
-	/**
-	 * 私钥
-	 */
-	private String privateKey;
-	/**
-	 * 公钥
-	 */
-	private String publicKey;
+	private String transactionId;
+
 }

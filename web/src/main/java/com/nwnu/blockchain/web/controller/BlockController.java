@@ -4,8 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.nwnu.blockchain.ApplicationContextProvider;
 import com.nwnu.blockchain.block.Block;
 import com.nwnu.blockchain.block.BlockBody;
-import com.nwnu.blockchain.block.Instruction;
-import com.nwnu.blockchain.block.Operation;
+import com.nwnu.blockchain.block.Transaction;
 import com.nwnu.blockchain.check.BlockChecker;
 import com.nwnu.blockchain.common.exception.TrustSDKException;
 import com.nwnu.blockchain.core.bean.BaseData;
@@ -15,16 +14,15 @@ import com.nwnu.blockchain.core.packet.BlockPacket;
 import com.nwnu.blockchain.core.packet.PacketBuilder;
 import com.nwnu.blockchain.core.packet.PacketType;
 import com.nwnu.blockchain.core.requestbody.BlockRequestBody;
-import com.nwnu.blockchain.core.requestbody.InstructionBody;
+import com.nwnu.blockchain.core.requestbody.TransactionBody;
 import com.nwnu.blockchain.packet.PacketSender;
 import com.nwnu.blockchain.repository.event.DbSyncEvent;
 import com.nwnu.blockchain.repository.manager.DbBlockManager;
 import com.nwnu.blockchain.repository.manager.MessageManager;
 import com.nwnu.blockchain.repository.manager.SyncManager;
 import com.nwnu.blockchain.service.BlockService;
-import com.nwnu.blockchain.service.InstructionService;
+import com.nwnu.blockchain.service.TransactionService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
@@ -48,25 +46,25 @@ public class BlockController {
 	private final BlockService blockService;
 	private final PacketSender packetSender;
 	private final DbBlockManager dbBlockManager;
-	private final InstructionService instructionService;
+	private final TransactionService transactionService;
 	private final SyncManager syncManager;
 	private final MessageManager messageManager;
 	private final BlockChecker blockChecker;
 
 	public BlockController(BlockService blockService, PacketSender packetSender, DbBlockManager dbBlockManager,
-						   InstructionService instructionService, SyncManager syncManager,
+						   TransactionService transactionService, SyncManager syncManager,
 						   MessageManager messageManager, BlockChecker blockChecker) {
 		this.blockService = blockService;
 		this.packetSender = packetSender;
 		this.dbBlockManager = dbBlockManager;
-		this.instructionService = instructionService;
+		this.transactionService = transactionService;
 		this.syncManager = syncManager;
 		this.messageManager = messageManager;
 		this.blockChecker = blockChecker;
 	}
 
 	/**
-	 * 添加一个block，需要先在InstructionController构建1-N个instruction指令，然后调用该接口生成Block
+	 * 添加一个block，需要先在TransactionController构建1-N个Transaction指令，然后调用该接口生成Block
 	 *
 	 * @param blockRequestBody 指令的集合
 	 * @return 结果
@@ -87,77 +85,21 @@ public class BlockController {
 	 */
 	@GetMapping
 	public BaseData test(String content) throws Exception {
-		InstructionBody instructionBody = new InstructionBody();
-		instructionBody.setOperation(Operation.ADD);
-		instructionBody.setTable("message");
-		instructionBody.setJson("{\"content\":\"" + content + "\"}");
-		instructionBody.setPublicKey("A8WLqHTjcT/FQ2IWhIePNShUEcdCzu5dG+XrQU8OMu54");
-		instructionBody.setPrivateKey("yScdp6fNgUU+cRUTygvJG4EBhDKmOMRrK4XJ9mKVQJ8=");
-		log.info("build instruction");
-		Instruction instruction = instructionService.build(instructionBody);
+		TransactionBody transactionBody = new TransactionBody();
+		transactionBody.setTable("message");
+		transactionBody.setJson("{\"content\":\"" + content + "\"}");
+		transactionBody.setPublicKey("A8WLqHTjcT/FQ2IWhIePNShUEcdCzu5dG+XrQU8OMu54");
+		transactionBody.setPrivateKey("yScdp6fNgUU+cRUTygvJG4EBhDKmOMRrK4XJ9mKVQJ8=");
+		log.info("build transaction");
+		Transaction transaction = transactionService.build(transactionBody);
 
 		BlockRequestBody blockRequestBody = new BlockRequestBody();
-		blockRequestBody.setPublicKey(instructionBody.getPublicKey());
+		blockRequestBody.setPublicKey(transactionBody.getPublicKey());
 		BlockBody blockBody = new BlockBody();
-		blockBody.setInstructions(CollectionUtil.newArrayList(instruction));
+		blockBody.setTransactions(CollectionUtil.newArrayList(transaction));
 
 		blockRequestBody.setBlockBody(blockBody);
 		log.info("add block");
-
-		return ResultGenerator.genSuccessResult(blockService.addBlock(blockRequestBody));
-	}
-
-	/**
-	 * 测试生成一个update:Block，公钥私钥可以通过PairKeyController来生成
-	 *
-	 * @param id      更新的主键
-	 * @param content sql内容
-	 */
-	@GetMapping("testUpdate")
-	public BaseData testUpdate(String id, String content) throws Exception {
-		if (StringUtils.isBlank(id)) ResultGenerator.genSuccessResult("主键不可为空");
-		InstructionBody instructionBody = new InstructionBody();
-		instructionBody.setOperation(Operation.UPDATE);
-		instructionBody.setTable("message");
-		instructionBody.setInstructionId(id);
-		instructionBody.setJson("{\"content\":\"" + content + "\"}");
-		instructionBody.setPublicKey("A8WLqHTjcT/FQ2IWhIePNShUEcdCzu5dG+XrQU8OMu54");
-		instructionBody.setPrivateKey("yScdp6fNgUU+cRUTygvJG4EBhDKmOMRrK4XJ9mKVQJ8=");
-		Instruction instruction = instructionService.build(instructionBody);
-
-		BlockRequestBody blockRequestBody = new BlockRequestBody();
-		blockRequestBody.setPublicKey(instructionBody.getPublicKey());
-		BlockBody blockBody = new BlockBody();
-		blockBody.setInstructions(CollectionUtil.newArrayList(instruction));
-
-		blockRequestBody.setBlockBody(blockBody);
-
-		return ResultGenerator.genSuccessResult(blockService.addBlock(blockRequestBody));
-	}
-
-	/**
-	 * 测试生成一个delete:Block，公钥私钥可以通过PairKeyController来生成
-	 *
-	 * @param id 待删除记录的主键
-	 *           sql内容
-	 */
-	@GetMapping("testDel")
-	public BaseData testDel(String id) throws Exception {
-		if (StringUtils.isBlank(id)) ResultGenerator.genSuccessResult("主键不可为空");
-		InstructionBody instructionBody = new InstructionBody();
-		instructionBody.setOperation(Operation.DELETE);
-		instructionBody.setTable("message");
-		instructionBody.setInstructionId(id);
-		instructionBody.setPublicKey("A8WLqHTjcT/FQ2IWhIePNShUEcdCzu5dG+XrQU8OMu54");
-		instructionBody.setPrivateKey("yScdp6fNgUU+cRUTygvJG4EBhDKmOMRrK4XJ9mKVQJ8=");
-		Instruction instruction = instructionService.build(instructionBody);
-
-		BlockRequestBody blockRequestBody = new BlockRequestBody();
-		blockRequestBody.setPublicKey(instructionBody.getPublicKey());
-		BlockBody blockBody = new BlockBody();
-		blockBody.setInstructions(CollectionUtil.newArrayList(instruction));
-
-		blockRequestBody.setBlockBody(blockBody);
 
 		return ResultGenerator.genSuccessResult(blockService.addBlock(blockRequestBody));
 	}

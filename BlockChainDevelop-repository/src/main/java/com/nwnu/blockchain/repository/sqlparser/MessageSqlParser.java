@@ -2,7 +2,6 @@ package com.nwnu.blockchain.repository.sqlparser;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import com.nwnu.blockchain.block.Operation;
 import com.nwnu.blockchain.core.model.MessageEntity;
 import com.nwnu.blockchain.repository.sqlite.repository.MessageRepository;
 import com.nwnu.blockchain.utils.CommonUtil;
@@ -28,19 +27,10 @@ public class MessageSqlParser extends AbstractSqlParser<MessageEntity> {
 	private MessageRepository messageRepository;
 
 	@Override
-	public void parse(byte operation, String messageId, MessageEntity entity) {
-		if (Operation.ADD == operation) {
-			entity.setCreateTime(CommonUtil.getNow());
-			entity.setMessageId(messageId);
-			messageRepository.save(entity);
-		} else if (Operation.DELETE == operation) {
-			messageRepository.deleteByMessageId(messageId);
-		} else if (Operation.UPDATE == operation) {
-			MessageEntity messageEntity = messageRepository.findByMessageId(messageId);
-			BeanUtil.copyProperties(entity, messageEntity,
-					CopyOptions.create().setIgnoreNullValue(true).setIgnoreProperties("id", "createTime"));
-			messageRepository.save(messageEntity);
-		}
+	public void parse(String messageId, MessageEntity entity) {
+		entity.setCreateTime(CommonUtil.getNow());
+		entity.setMessageId(messageId);
+		messageRepository.save(entity);
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package com.nwnu.blockchain.repository.manager;
 
 import com.nwnu.blockchain.block.Block;
-import com.nwnu.blockchain.block.Instruction;
+import com.nwnu.blockchain.block.Transaction;
 import com.nwnu.blockchain.common.type.PermissionType;
 import com.nwnu.blockchain.core.bean.Permission;
 import lombok.extern.slf4j.Slf4j;
@@ -37,17 +37,16 @@ public class PermissionManager {
 	 * @return 合法
 	 */
 	public boolean checkPermission(Block block) {
-		List<Instruction> instructions = block.getBlockBody().getInstructions();
-		return checkPermission(instructions);
+		List<Transaction> transactions = block.getBlockBody().getTransactions();
+		return checkPermission(transactions);
 	}
 
-	public boolean checkPermission(List<Instruction> instructions) {
-		for (Instruction instruction : instructions) {
-			String publicKey = instruction.getPublicKey();
-			String tableName = instruction.getTable();
-			byte operation = instruction.getOperation();
+	public boolean checkPermission(List<Transaction> transactions) {
+		for (Transaction transaction : transactions) {
+			String publicKey = transaction.getPublicKey();
+			String tableName = transaction.getTable();
 			//TODO 这块要优化，循环次数太多，需要精简
-			if (!checkOperation(publicKey, tableName, operation)) {
+			if (!checkOperation(publicKey, tableName)) {
 				return false;
 			}
 		}
@@ -60,10 +59,9 @@ public class PermissionManager {
 	 *
 	 * @param publicKey 公钥
 	 * @param tableName 表名
-	 * @param operation 操作
 	 * @return 有权限true
 	 */
-	private boolean checkOperation(String publicKey, String tableName, byte operation) {
+	private boolean checkOperation(String publicKey, String tableName) {
 		List<Permission> permissionList = PERMISSION_MAP.get(tableName);
 
 		Set<Byte> userPermissionSet = new HashSet<>();
@@ -81,8 +79,7 @@ public class PermissionManager {
 
 		//判断该用户的权限是否包含operation
 		return userPermissionSet.contains(PermissionType.OWNER)
-				|| userPermissionSet.contains(PermissionType.ALL)
-				|| userPermissionSet.contains(operation);
+				|| userPermissionSet.contains(PermissionType.ALL);
 	}
 
 

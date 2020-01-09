@@ -7,6 +7,7 @@ import com.nwnu.blockchain.core.vote.VoteMsg;
 import com.nwnu.blockchain.core.vote.VoteType;
 import com.nwnu.blockchain.p2p.pbft.event.MsgCommitEvent;
 import com.nwnu.blockchain.repository.event.AddBlockEvent;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
@@ -30,12 +31,12 @@ import java.util.List;
  * @since 1.0.0
  */
 @Component
+@Slf4j
 public class PrepareMsgQueue extends AbstractVoteMsgQueue {
 	@Resource
 	private CommitMsgQueue commitMsgQueue;
 	@Resource
 	private ApplicationEventPublisher eventPublisher;
-	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	/**
 	 * 收到节点（包括自己）针对某Block的Prepare消息
@@ -69,7 +70,7 @@ public class PrepareMsgQueue extends AbstractVoteMsgQueue {
 	}
 
 	private void agree(VoteMsg commitMsg, boolean flag) {
-		logger.info("Prepare阶段完毕，是否进入commit的标志是：" + flag);
+		log.info("Prepare阶段完毕，是否进入commit的标志是：{}", flag);
 		//发出拒绝commit的消息
 		commitMsg.setAgree(flag);
 		voteStateConcurrentHashMap.put(commitMsg.getHash(), flag);

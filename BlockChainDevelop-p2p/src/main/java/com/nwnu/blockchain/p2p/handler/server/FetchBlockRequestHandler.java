@@ -7,7 +7,7 @@ import com.nwnu.blockchain.core.body.RpcSimpleBlockBody;
 import com.nwnu.blockchain.core.packet.BlockPacket;
 import com.nwnu.blockchain.core.packet.PacketBuilder;
 import com.nwnu.blockchain.core.packet.PacketType;
-import com.nwnu.blockchain.p2p.base.AbstractBlockHandler;
+import com.nwnu.blockchain.p2p.handler.base.AbstractBlockHandler;
 import com.nwnu.blockchain.repository.manager.DbBlockManager;
 import lombok.extern.slf4j.Slf4j;
 import org.tio.core.ChannelContext;

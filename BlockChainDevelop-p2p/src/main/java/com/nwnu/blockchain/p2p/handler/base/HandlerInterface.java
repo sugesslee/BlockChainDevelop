@@ -1,4 +1,4 @@
-package com.nwnu.blockchain.p2p.base;
+package com.nwnu.blockchain.p2p.handler.base;
 
 import com.nwnu.blockchain.core.packet.BlockPacket;
 import org.tio.core.ChannelContext;

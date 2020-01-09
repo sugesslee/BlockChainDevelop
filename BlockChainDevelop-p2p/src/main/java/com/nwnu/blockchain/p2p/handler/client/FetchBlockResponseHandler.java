@@ -6,7 +6,7 @@ import com.nwnu.blockchain.check.CheckerManager;
 import com.nwnu.blockchain.core.body.RpcBlockBody;
 import com.nwnu.blockchain.core.body.RpcCheckBlockBody;
 import com.nwnu.blockchain.core.packet.BlockPacket;
-import com.nwnu.blockchain.p2p.base.AbstractBlockHandler;
+import com.nwnu.blockchain.p2p.handler.base.AbstractBlockHandler;
 import com.nwnu.blockchain.p2p.pbft.queue.NextBlockQueue;
 import com.nwnu.blockchain.packet.NextBlockPacketBuilder;
 import com.nwnu.blockchain.packet.PacketSender;
@@ -37,7 +37,7 @@ public class FetchBlockResponseHandler extends AbstractBlockHandler<RpcBlockBody
 
 	@Override
 	public Object handler(BlockPacket packet, RpcBlockBody rpcBlockBody, ChannelContext channelContext) {
-		log.info("收到来自于<" + rpcBlockBody.getAppId() + ">的回复，Block为：" + Json.toJson(rpcBlockBody));
+		log.info("收到来自于<{}>的回复，Block为：{}", rpcBlockBody.getAppId(), Json.toJson(rpcBlockBody));
 
 		Block block = rpcBlockBody.getBlock();
 		//如果为null，说明对方也没有该Block

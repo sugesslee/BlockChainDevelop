@@ -53,7 +53,7 @@ public class PreMsgQueue extends BaseMsgQueue {
 			return;
 		}
 		//但凡是能进到该push方法的，都是通过基本校验的，但在并发情况下可能会相同number的block都进到投票队列中
-		//需要对新进来的Vote信息的number进行校验，如果在比prepre阶段靠后的阶段中，已经出现了认证OK的同number的vote，则拒绝进入该队列
+		//需要对新进来的Vote信息的number进行校验，如果在比prepare阶段靠后的阶段中，已经出现了认证OK的同number的vote，则拒绝进入该队列
 		if (prepareMsgQueue.otherConfirm(hash, voteMsg.getNumber())) {
 			log.info("拒绝进入Prepare阶段，hash为:{}", hash);
 			return;

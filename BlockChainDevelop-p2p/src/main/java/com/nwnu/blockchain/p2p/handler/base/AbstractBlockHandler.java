@@ -1,4 +1,4 @@
-package com.nwnu.blockchain.p2p.base;
+package com.nwnu.blockchain.p2p.handler.base;
 
 import com.nwnu.blockchain.common.constant.ServerConst;
 import com.nwnu.blockchain.core.body.BaseBody;

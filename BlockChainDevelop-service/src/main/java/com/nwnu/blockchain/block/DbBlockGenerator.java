@@ -6,6 +6,7 @@ import com.nwnu.blockchain.common.constant.Constants;
 import com.nwnu.blockchain.repository.db.DbStore;
 import com.nwnu.blockchain.repository.event.AddBlockEvent;
 import com.nwnu.blockchain.repository.event.DbSyncEvent;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
@@ -29,12 +30,12 @@ import javax.annotation.Resource;
  * @since 1.0.0
  */
 @Service
+@Slf4j
 public class DbBlockGenerator {
 	@Resource
 	private DbStore dbStore;
 	@Resource
 	private CheckerManager checkerManager;
-	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	/**
 	 * 数据库里添加一个新的区块
@@ -44,7 +45,7 @@ public class DbBlockGenerator {
 	@Order(1)
 	@EventListener(AddBlockEvent.class)
 	public synchronized void addBlock(AddBlockEvent addBlockEvent) {
-		logger.info("开始生成本地block");
+		log.info("开始生成本地block");
 		Block block = (Block) addBlockEvent.getSource();
 		String hash = block.getBlockHash();
 		//如果已经存在了，说明已经更新过该Block了
@@ -68,7 +69,7 @@ public class DbBlockGenerator {
 		//设置最后一个block的key value
 		dbStore.put(Constants.KEY_LAST_BLOCK, hash);
 
-		logger.info("本地已生成新的Block");
+		log.info("本地已生成新的Block");
 
 		//同步到sqlite
 		sqliteSync();

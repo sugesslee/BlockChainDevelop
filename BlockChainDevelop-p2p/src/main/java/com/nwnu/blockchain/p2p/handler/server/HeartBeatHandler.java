@@ -2,7 +2,7 @@ package com.nwnu.blockchain.p2p.handler.server;
 
 import com.nwnu.blockchain.core.body.HeartBeatBody;
 import com.nwnu.blockchain.core.packet.BlockPacket;
-import com.nwnu.blockchain.p2p.base.AbstractBlockHandler;
+import com.nwnu.blockchain.p2p.handler.base.AbstractBlockHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.tio.core.ChannelContext;
 
@@ -29,7 +29,7 @@ public class HeartBeatHandler extends AbstractBlockHandler<HeartBeatBody> {
 	@Override
 	public Object handler(BlockPacket packet, HeartBeatBody heartBeatBody, ChannelContext channelContext)
 			throws Exception {
-		log.info("收到<心跳包>消息", heartBeatBody.getText());
+		log.info("收到<心跳包>消息: {}", heartBeatBody.getText());
 
 		return null;
 	}

@@ -4,7 +4,7 @@ import com.nwnu.blockchain.ApplicationContextProvider;
 import com.nwnu.blockchain.block.Block;
 import com.nwnu.blockchain.core.body.RpcSimpleBlockBody;
 import com.nwnu.blockchain.core.packet.BlockPacket;
-import com.nwnu.blockchain.p2p.base.AbstractBlockHandler;
+import com.nwnu.blockchain.p2p.handler.base.AbstractBlockHandler;
 import com.nwnu.blockchain.packet.NextBlockPacketBuilder;
 import com.nwnu.blockchain.packet.PacketSender;
 import com.nwnu.blockchain.repository.manager.DbBlockManager;
@@ -34,8 +34,7 @@ public class GenerateCompleteRequestHandler extends AbstractBlockHandler<RpcSimp
 
 	@Override
 	public Object handler(BlockPacket packet, RpcSimpleBlockBody rpcBlockBody, ChannelContext channelContext) {
-		log.info("收到来自于<" + rpcBlockBody.getAppId() + "><生成了新的Block>消息，block hash为[" + rpcBlockBody.getHash() +
-				"]");
+		log.info("收到来自于<{}><生成了新的Block>消息，block hash为[{}]", rpcBlockBody.getAppId(), rpcBlockBody.getHash());
 
 		//延迟2秒校验一下本地是否有该区块，如果没有，则发请求去获取新Block
 		//延迟的目的是可能刚好自己也马上就要生成同样的Block了，就可以省一次请求
@@ -50,7 +49,7 @@ public class GenerateCompleteRequestHandler extends AbstractBlockHandler<RpcSimp
 				ApplicationContextProvider.getBean(PacketSender.class).sendGroup(nextBlockPacket);
 			}
 			return null;
-		},2000);
+		}, 2000);
 
 		return null;
 	}

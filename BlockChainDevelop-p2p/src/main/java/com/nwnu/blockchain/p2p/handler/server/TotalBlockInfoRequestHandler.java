@@ -2,7 +2,7 @@ package com.nwnu.blockchain.p2p.handler.server;
 
 import com.nwnu.blockchain.core.body.RpcBlockBody;
 import com.nwnu.blockchain.core.packet.BlockPacket;
-import com.nwnu.blockchain.p2p.base.AbstractBlockHandler;
+import com.nwnu.blockchain.p2p.handler.base.AbstractBlockHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.tio.core.ChannelContext;
 import org.tio.utils.json.Json;
@@ -29,7 +29,7 @@ public class TotalBlockInfoRequestHandler extends AbstractBlockHandler<RpcBlockB
 	@Override
 	public Object handler(BlockPacket packet, RpcBlockBody rpcBlockBody, ChannelContext channelContext)
 			throws Exception {
-		log.info("收到<请求生成Block的回应>消息", Json.toJson(rpcBlockBody));
+		log.info("收到<请求生成Block的回应>消息: {}", Json.toJson(rpcBlockBody));
 
 		//TODO check合法性
 		//TODO response

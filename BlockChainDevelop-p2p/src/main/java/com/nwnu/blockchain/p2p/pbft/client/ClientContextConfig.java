@@ -1,4 +1,4 @@
-package com.nwnu.blockchain.p2p.client;
+package com.nwnu.blockchain.p2p.pbft.client;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,10 +35,9 @@ public class ClientContextConfig {
 		ClientAioListener clientAioListener = new BlockClientAioListener();
 		//断链后自动连接的，不想自动连接请设为null
 		ReconnConf reconnConf = new ReconnConf(5000L, 20);
-		ClientGroupContext clientGroupContext = new ClientGroupContext(clientAioHandler, clientAioListener,
-				reconnConf);
 
 		//clientGroupContext.setHeartbeatTimeout(Const.TIMEOUT);
-		return clientGroupContext;
+		return new ClientGroupContext(clientAioHandler, clientAioListener,
+				reconnConf);
 	}
 }

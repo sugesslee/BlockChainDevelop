@@ -1,4 +1,4 @@
-package com.nwnu.blockchain.p2p.server;
+package com.nwnu.blockchain.p2p.pbft.server;
 
 import lombok.extern.slf4j.Slf4j;
 import org.tio.core.ChannelContext;

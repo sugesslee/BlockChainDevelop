@@ -1,7 +1,7 @@
 package com.nwnu.blockchain.p2p.pbft.queue;
 
 import com.nwnu.blockchain.core.vote.VoteMsg;
-import com.nwnu.blockchain.p2p.client.ClientStarter;
+import com.nwnu.blockchain.p2p.pbft.client.ClientStarter;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

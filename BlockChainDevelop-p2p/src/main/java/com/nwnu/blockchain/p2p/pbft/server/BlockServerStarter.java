@@ -1,4 +1,4 @@
-package com.nwnu.blockchain.p2p.server;
+package com.nwnu.blockchain.p2p.pbft.server;
 
 import com.nwnu.blockchain.common.constant.ServerConst;
 import org.springframework.stereotype.Component;

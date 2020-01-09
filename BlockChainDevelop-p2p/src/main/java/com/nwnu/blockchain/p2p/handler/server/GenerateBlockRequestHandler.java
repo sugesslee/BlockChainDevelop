@@ -8,7 +8,7 @@ import com.nwnu.blockchain.core.body.RpcCheckBlockBody;
 import com.nwnu.blockchain.core.packet.BlockPacket;
 import com.nwnu.blockchain.core.vote.VotePreMsg;
 import com.nwnu.blockchain.core.vote.VoteType;
-import com.nwnu.blockchain.p2p.base.AbstractBlockHandler;
+import com.nwnu.blockchain.p2p.handler.base.AbstractBlockHandler;
 import com.nwnu.blockchain.p2p.pbft.queue.MsgQueueManager;
 import lombok.extern.slf4j.Slf4j;
 import org.tio.core.ChannelContext;
@@ -36,12 +36,12 @@ public class GenerateBlockRequestHandler extends AbstractBlockHandler<RpcBlockBo
 	@Override
 	public Object handler(BlockPacket packet, RpcBlockBody rpcBlockBody, ChannelContext channelContext) {
 		Block block = rpcBlockBody.getBlock();
-		log.info("收到来自于<" + rpcBlockBody.getAppId() + "><请求生成Block>消息，block信息为[" + block + "]");
+		log.info("收到来自于<{}><请求生成Block>消息，block信息为[{}]", rpcBlockBody.getAppId(), block);
 
 		CheckerManager checkerManager = ApplicationContextProvider.getBean(CheckerManager.class);
 		//对区块的基本信息进行校验，校验通过后进入pbft的Pre队列
 		RpcCheckBlockBody rpcCheckBlockBody = checkerManager.check(block);
-		log.info("校验结果:" + rpcCheckBlockBody.toString());
+		log.info("校验结果: {}", rpcCheckBlockBody.toString());
 		if (rpcCheckBlockBody.getCode() == 0) {
 			VotePreMsg votePreMsg = new VotePreMsg();
 			votePreMsg.setBlock(block);

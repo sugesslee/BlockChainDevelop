@@ -9,7 +9,7 @@ import com.nwnu.blockchain.core.model.SyncEntity;
 import com.nwnu.blockchain.repository.event.DbSyncEvent;
 import com.nwnu.blockchain.repository.manager.DbBlockManager;
 import com.nwnu.blockchain.repository.manager.SyncManager;
-import com.nwnu.blockchain.repository.sqlparser.InstructionParser;
+import com.nwnu.blockchain.repository.sqlparser.TransactionParser;
 import com.nwnu.blockchain.service.InstructionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
@@ -36,7 +36,7 @@ import java.util.List;
 @Slf4j
 public class SqliteManager {
 	@Resource
-	private InstructionParser instructionParser;
+	private TransactionParser transactionParser;
 	@Resource
 	private SyncManager syncManager;
 	@Resource
@@ -112,14 +112,14 @@ public class SqliteManager {
 
 	private <T extends InstructionBase> void doSqlParse(List<T> instructions) {
 		for (InstructionBase instruction : instructions) {
-			instructionParser.parse(instruction);
+			transactionParser.parse(instruction);
 		}
 	}
 
 	/**
 	 * 测试block的代码是否能正确执行
 	 *
-	 * @param block
+	 * @param block block
 	 * @throws Exception msg=00001 则说明是正常执行
 	 */
 	@Transactional(rollbackFor = Exception.class)

@@ -1,4 +1,4 @@
-package com.nwnu.blockchain.p2p.base;
+package com.nwnu.blockchain.p2p.handler.base;
 
 import com.nwnu.blockchain.core.packet.BlockPacket;
 import org.tio.core.ChannelContext;
@@ -75,18 +75,18 @@ public abstract class AbstractAioHandler implements AioHandler {
 			bodyLen = body.length;
 		}
 
-		//总长度是消息头的长度+消息体的长度
+		// 总长度=消息头的长度+消息体的长度
 		int allLen = BlockPacket.HEADER_LENGTH + bodyLen;
 
 		ByteBuffer buffer = ByteBuffer.allocate(allLen);
 		buffer.order(groupContext.getByteOrder());
 
-		//写入消息类型
+		// 写入消息类型
 		buffer.put(showcasePacket.getType());
 		//写入消息体长度
 		buffer.putInt(bodyLen);
 
-		//写入消息体
+		// 写入消息体
 		if (body != null) {
 			buffer.put(body);
 		}

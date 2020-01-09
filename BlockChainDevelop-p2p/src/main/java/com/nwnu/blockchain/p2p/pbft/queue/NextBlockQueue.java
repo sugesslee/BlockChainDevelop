@@ -7,11 +7,10 @@ import com.nwnu.blockchain.core.body.RpcSimpleBlockBody;
 import com.nwnu.blockchain.core.packet.BlockPacket;
 import com.nwnu.blockchain.core.packet.PacketBuilder;
 import com.nwnu.blockchain.core.packet.PacketType;
-import com.nwnu.blockchain.p2p.client.ClientStarter;
+import com.nwnu.blockchain.p2p.pbft.client.ClientStarter;
 import com.nwnu.blockchain.packet.PacketSender;
 import com.nwnu.blockchain.repository.manager.DbBlockManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -33,6 +32,7 @@ import java.util.stream.Collectors;
  * @since 1.0.0
  */
 @Component
+@Slf4j
 public class NextBlockQueue {
 	@Resource
 	private DbBlockManager dbBlockManager;
@@ -40,8 +40,6 @@ public class NextBlockQueue {
 	private ClientStarter clientStarter;
 	@Resource
 	private PacketSender packetSender;
-
-	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	/**
 	 * prevHash->hash，记录上一区块hash和hash的映射
@@ -96,7 +94,8 @@ public class NextBlockQueue {
 		Map<String, Integer> map = new HashMap<>();
 		for (BlockHash blockHash : blockHashes) {
 			String hash = blockHash.getHash();
-			map.merge(hash, 1, (a, b) -> a + b);
+			map.merge(hash, 1, Integer::sum);
+//			map.merge(hash, 1, (a, b) -> a + b);
 		}
 		//找到value最大的那个key，即被同意最多的hash
 		String hash = getMaxKey(map);
@@ -151,7 +150,7 @@ public class NextBlockQueue {
 
 		//判断数量是否过线
 		if (maxCount >= agreeCount - 1) {
-			logger.info("共有<" + maxCount + ">个节点返回next block hash为" + wantHash);
+			log.info("共有<{}>个节点返回next block hash为:{}", maxCount, wantHash);
 			wantHashs.add(wantHash);
 			//请求拉取该hash的Block
 			BlockPacket blockPacket = new PacketBuilder<RpcSimpleBlockBody>().setType(PacketType
@@ -160,6 +159,5 @@ public class NextBlockQueue {
 			//remove后，这一次请求内的后续回复就凑不够agreeCount了，就不会再次触发全员请求block
 			remove(prevHash);
 		}
-
 	}
 }

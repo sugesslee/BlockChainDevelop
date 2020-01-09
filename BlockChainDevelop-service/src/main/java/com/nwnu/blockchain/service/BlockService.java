@@ -92,8 +92,10 @@ public class BlockService {
 	 * @return Block
 	 */
 	public Block addBlock(BlockRequestBody blockRequestBody) {
+		// 区块body，里面存放交易的数组
 		BlockBody blockBody = blockRequestBody.getBlockBody();
 		List<Instruction> instructions = blockBody.getInstructions();
+		// 将交易数组中的每个交易hash组成list，存入区块头
 		List<String> hashList = instructions.stream().map(Instruction::getHash).collect(Collectors
 				.toList());
 
@@ -112,6 +114,8 @@ public class BlockService {
 		block.setBlockHeader(blockHeader);
 		block.setBlockHash(CryptoUtil.getSHA256(blockHeader.toString() + blockBody.toString()));
 
+		// 构建生成区块消息
+		// new BlockPacket(type, body)
 		BlockPacket blockPacket = new PacketBuilder<>().setType(PacketType.GENERATE_BLOCK_REQUEST).setBody(new
 				RpcBlockBody(block)).build();
 
@@ -120,5 +124,4 @@ public class BlockService {
 
 		return block;
 	}
-
 }

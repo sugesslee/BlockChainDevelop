@@ -1,4 +1,4 @@
-package com.nwnu.blockchain.p2p.client;
+package com.nwnu.blockchain.p2p.pbft.client;
 
 import com.nwnu.blockchain.block.Block;
 import com.nwnu.blockchain.core.body.RpcSimpleBlockBody;

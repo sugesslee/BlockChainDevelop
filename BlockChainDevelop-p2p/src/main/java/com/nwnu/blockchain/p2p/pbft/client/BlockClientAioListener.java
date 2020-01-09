@@ -1,4 +1,4 @@
-package com.nwnu.blockchain.p2p.client;
+package com.nwnu.blockchain.p2p.pbft.client;
 
 import com.nwnu.blockchain.ApplicationContextProvider;
 import com.nwnu.blockchain.repository.event.NodesConnectedEvent;
@@ -37,7 +37,7 @@ public class BlockClientAioListener implements ClientAioListener {
 
 	@Override
 	public void onBeforeClose(ChannelContext channelContext, Throwable throwable, String s, boolean b) {
-		log.info("连接关闭：server地址为-" + channelContext.getServerNode());
+		log.info("连接关闭：server地址为-{}", channelContext.getServerNode());
 		Tio.unbindGroup(channelContext);
 	}
 

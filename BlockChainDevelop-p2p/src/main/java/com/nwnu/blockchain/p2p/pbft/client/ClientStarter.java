@@ -1,4 +1,4 @@
-package com.nwnu.blockchain.p2p.client;
+package com.nwnu.blockchain.p2p.pbft.client;
 
 import com.google.common.collect.Maps;
 import com.nwnu.blockchain.common.AppId;
@@ -73,13 +73,13 @@ public class ClientStarter {
 	private volatile boolean isNodesReady = false; // 节点是否已准备好
 
 	/**
-	 * 从麦达区块链管理端获取已登记的各服务器ip
+	 * 从区块链管理端获取已登记的各服务器ip
 	 * 隔5分钟去获取一次300000
 	 */
 	@Scheduled(fixedRate = 300000)
 	public void fetchOtherServer() {
 		String localIp = GetLocalIpUtil.getLocalIp();
-		log.info("APP_ID: {}, NAME: {}, IP：{}", appId, name, localIp);
+		log.info("Client get info: APP_ID: {}, NAME: {}, IP：{}", appId, name, localIp);
 		try {
 			//如果连不上服务器，就不让启动
 			MemberData memberData = restTemplate.getForEntity(managerUrl + "member?name=" + name + "&appId=" + AppId
@@ -91,7 +91,7 @@ public class ClientStarter {
 			assert memberData != null;
 			if (memberData.getCode() == 0) {
 				List<Member> memberList = memberData.getMembers();
-				log.info("共有" + memberList.size() + "个成员需要连接：" + memberList.toString());
+				log.info("共有{}个成员需要连接：{}", memberList.size(), memberList.toString());
 
 				nodes.clear();
 				for (Member member : memberList) {
@@ -106,14 +106,14 @@ public class ClientStarter {
 				System.exit(0);
 			}
 		} catch (Exception e) {
-			log.error("请先启动md_blockchain_manager服务，并配置appId等属性，只有合法联盟链成员才能启动该服务");
+			log.error("请先启动manager服务，并配置appId等属性，只有合法联盟链成员才能启动该服务");
 			System.exit(0);
 		}
 
 	}
 
 	/**
-	 * 从麦达区块链管理端获取权限信息，一天获取一次即可1000 * 60 * 60 * 24
+	 * 从区块链管理端获取权限信息，一天获取一次即可1000 * 60 * 60 * 24
 	 */
 	@Scheduled(fixedRate = 1000 * 60 * 60 * 24, initialDelay = 2000)
 	public void fetchPermission() {
@@ -122,6 +122,7 @@ public class ClientStarter {
 			PermissionData permissionData = restTemplate.getForEntity(managerUrl + "permission?name=" + name,
 					PermissionData.class).getBody();
 			//获取到权限
+			assert permissionData != null;
 			if (permissionData.getCode() == 0) {
 				List<Permission> permissionList = permissionData.getPermissions();
 				permissionManager.savePermissionList(permissionList);
@@ -142,7 +143,7 @@ public class ClientStarter {
 	@Scheduled(fixedRate = 30000)
 	public void heartBeat() {
 		if (!isNodesReady) return;
-		log.info("---------开始心跳包--------");
+		log.info("---------每30秒群发一次消息，和别人对比最新的Block--------");
 		BlockPacket blockPacket = NextBlockPacketBuilder.build();
 		packetSender.sendGroup(blockPacket);
 	}
@@ -191,10 +192,10 @@ public class ClientStarter {
 	private void connect(Node serverNode) {
 		try {
 			TioClient TioClient = new TioClient(clientGroupContext);
-			log.info("开始绑定" + ":" + serverNode.toString());
+			log.info("start bind: {}", serverNode.toString());
 			TioClient.asynConnect(serverNode);
 		} catch (Exception e) {
-			log.info("异常");
+			log.info("node bind error: {}", e.getMessage());
 		}
 	}
 
@@ -203,11 +204,11 @@ public class ClientStarter {
 		ChannelContext channelContext = connectedEvent.getSource();
 		Node node = channelContext.getServerNode();
 		if (channelContext.isClosed) {
-			log.info("连接" + node.toString() + "失败");
+			log.info("连接{}失败", node.toString());
 			nodesStatus.put(node.getIp(), -1);
 			return;
 		} else {
-			log.info("连接" + node.toString() + "成功");
+			log.info("连接{}成功", node.toString());
 			nodesStatus.put(node.getIp(), 1);
 			//绑group是将要连接的各个服务器节点做为一个group
 			Tio.bindGroup(channelContext, ServerConst.GROUP_NAME);

@@ -22,7 +22,7 @@ import javax.annotation.Resource;
  * @since 1.0.0
  */
 @Service
-public class InstructionParserImpl<T extends BaseEntity> implements InstructionParser {
+public class TransactionParserImpl<T extends BaseEntity> implements TransactionParser {
 	@Resource
 	private ConvertTableName<T> convertTableName;
 	@Resource
@@ -45,7 +45,6 @@ public class InstructionParserImpl<T extends BaseEntity> implements InstructionP
 				break;
 			}
 		}
-
 		return true;
 	}
 }

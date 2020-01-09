@@ -14,6 +14,6 @@ import com.nwnu.blockchain.block.InstructionBase;
  * @version 1.0.0 2019/11/18 2:39 PM
  * @since 1.0.0
  */
-public interface InstructionParser {
+public interface TransactionParser {
 	boolean parse(InstructionBase instructionBase);
 }

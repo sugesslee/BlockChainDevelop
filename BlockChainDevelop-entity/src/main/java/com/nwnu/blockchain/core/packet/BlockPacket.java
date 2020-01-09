@@ -38,7 +38,6 @@ public class BlockPacket extends Packet {
 	/**
 	 * @param type type
 	 * @param body body
-	 * @author tanyaowu
 	 */
 	public BlockPacket(byte type, byte[] body) {
 		super();

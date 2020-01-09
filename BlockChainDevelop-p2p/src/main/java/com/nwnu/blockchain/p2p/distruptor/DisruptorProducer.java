@@ -7,7 +7,7 @@ import com.nwnu.blockchain.p2p.distruptor.base.MessageProducer;
 
 /**
  * DisruptorProducer
- * 所有客户端、server端发来的消息，都进入这里，然后publish出去，供消费者消费
+ * 所有client、server发来的消息，都进入这里，然后publish出去，供消费者消费
  * <pre>
  *  Version         Date            Author          Description
  * ------------------------------------------------------------

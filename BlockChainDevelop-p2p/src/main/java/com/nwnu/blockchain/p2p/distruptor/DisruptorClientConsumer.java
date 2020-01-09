@@ -5,7 +5,7 @@ import com.nwnu.blockchain.common.AppId;
 import com.nwnu.blockchain.core.body.BaseBody;
 import com.nwnu.blockchain.core.packet.BlockPacket;
 import com.nwnu.blockchain.core.packet.PacketType;
-import com.nwnu.blockchain.p2p.base.AbstractBlockHandler;
+import com.nwnu.blockchain.p2p.handler.base.AbstractBlockHandler;
 import com.nwnu.blockchain.p2p.distruptor.base.BaseEvent;
 import com.nwnu.blockchain.p2p.distruptor.base.MessageConsumer;
 import com.nwnu.blockchain.p2p.handler.client.FetchBlockResponseHandler;

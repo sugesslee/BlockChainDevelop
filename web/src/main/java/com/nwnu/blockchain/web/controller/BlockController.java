@@ -64,9 +64,9 @@ public class BlockController {
 	}
 
 	/**
-	 * 添加一个block，需要先在TransactionController构建1-N个Transaction指令，然后调用该接口生成Block
+	 * 添加一个block，需要先在TransactionController构建1-N个Transaction，然后调用该接口生成Block
 	 *
-	 * @param blockRequestBody 指令的集合
+	 * @param blockRequestBody 交易的集合
 	 * @return 结果
 	 */
 	@PostMapping

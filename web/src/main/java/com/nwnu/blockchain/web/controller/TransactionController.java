@@ -31,10 +31,10 @@ public class TransactionController {
 	}
 
 	/**
-	 * 构建一条指令，传入各必要参数
+	 * 构建一条交易，传入各必要参数
 	 *
 	 * @param transactionBody transactionBody
-	 * @return 用私钥签名后的指令
+	 * @return 用私钥签名后的交易
 	 */
 	@PostMapping
 	public BaseData build(@RequestBody TransactionBody transactionBody) throws Exception {

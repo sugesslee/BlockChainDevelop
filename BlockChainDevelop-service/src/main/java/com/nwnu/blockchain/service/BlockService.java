@@ -103,7 +103,7 @@ public class BlockService {
 		blockHeader.setHashList(hashList);
 
 		//计算所有指令的hashRoot
-		blockHeader.setHashMerkleRoot(new MerkleTree(hashList).getRoot().toString());
+		blockHeader.setHashMerkleRoot(new MerkleTree(hashList).getRoot().getHash());
 		blockHeader.setPublicKey(blockRequestBody.getPublicKey());
 		blockHeader.setTimeStamp(CommonUtil.getNow());
 		blockHeader.setVersion(version);

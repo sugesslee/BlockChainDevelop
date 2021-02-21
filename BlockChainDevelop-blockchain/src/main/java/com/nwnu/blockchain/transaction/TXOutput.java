@@ -1,6 +1,6 @@
 package com.nwnu.blockchain.transaction;
 
-import com.nwnu.blockchain.util.Base58Check;
+import com.nwnu.blockchain.utils.Base58Check;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

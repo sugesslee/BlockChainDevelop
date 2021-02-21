@@ -64,6 +64,7 @@ public class PreMsgQueue extends BaseMsgQueue {
 		} catch (Exception e) {
 			if (!"00001".equals(e.getMessage())) {
 				// 执行异常
+				log.error("执行异常:{}", e.getMessage());
 				return;
 			} else {
 				log.info("指令预校验执行成功！");

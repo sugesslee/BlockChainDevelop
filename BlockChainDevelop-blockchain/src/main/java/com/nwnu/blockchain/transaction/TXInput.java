@@ -1,6 +1,6 @@
 package com.nwnu.blockchain.transaction;
 
-import com.nwnu.blockchain.util.AddressUtil;
+import com.nwnu.blockchain.utils.AddressUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

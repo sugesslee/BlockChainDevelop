@@ -1,6 +1,6 @@
 package com.nwnu.blockchain.tree;
 
-import com.nwnu.blockchain.util.SHAUtil;
+import com.nwnu.blockchain.utils.SHAUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;

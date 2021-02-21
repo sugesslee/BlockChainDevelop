@@ -6,6 +6,7 @@ import com.nwnu.blockchain.block.Block;
 import com.nwnu.blockchain.block.BlockBody;
 import com.nwnu.blockchain.block.Transaction;
 import com.nwnu.blockchain.check.BlockChecker;
+import com.nwnu.blockchain.common.constant.Constants;
 import com.nwnu.blockchain.common.exception.TrustSDKException;
 import com.nwnu.blockchain.core.bean.BaseData;
 import com.nwnu.blockchain.core.bean.ResultGenerator;
@@ -88,8 +89,8 @@ public class BlockController {
 		TransactionBody transactionBody = new TransactionBody();
 		transactionBody.setTable("message");
 		transactionBody.setJson("{\"content\":\"" + content + "\"}");
-		transactionBody.setPublicKey("A8WLqHTjcT/FQ2IWhIePNShUEcdCzu5dG+XrQU8OMu54");
-		transactionBody.setPrivateKey("yScdp6fNgUU+cRUTygvJG4EBhDKmOMRrK4XJ9mKVQJ8=");
+		transactionBody.setPublicKey("AykbN9NmMUF92kCbcmYQSH03HuF9ZYLsw0MqujQEtO0+");
+		transactionBody.setPrivateKey("l4OhExfS9m6turT5aT/vjNoSE46BO9Gc0gjhMlM2rMs=");
 		log.info("build transaction");
 		Transaction transaction = transactionService.build(transactionBody);
 
@@ -167,5 +168,31 @@ public class BlockController {
 				.setBody(new RpcBlockBody(block)).build();
 		packetSender.sendGroup(packet);
 		return null;
+	}
+
+	@PostMapping("/getBlockByHash")
+	public BaseData getBlockByHash(@RequestBody String hash){
+		Block block = dbBlockManager.getBlockByHash(hash);
+		return ResultGenerator.genSuccessResult(block);
+	}
+
+	/**
+	 * 获取最后一个block的number即区块高度
+	 * @return int block number
+	 */
+	@GetMapping("/getLastBlockNumber")
+	public BaseData getLastBlockNumber(){
+		int blockNumber = dbBlockManager.getLastBlockNumber();
+		return ResultGenerator.genSuccessResult(blockNumber);
+	}
+
+	/**
+	 * 获取最后一个区块的hash
+	 * @return int block hash
+	 */
+	@GetMapping("/getLastBlockHash")
+	public BaseData getLastBlockHash(){
+		String blockHash = dbBlockManager.getLastBlockHash();
+		return ResultGenerator.genSuccessResult(blockHash);
 	}
 }

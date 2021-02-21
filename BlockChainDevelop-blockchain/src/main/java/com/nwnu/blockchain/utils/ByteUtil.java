@@ -1,4 +1,4 @@
-package com.nwnu.blockchain.util;
+package com.nwnu.blockchain.utils;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.ArrayUtils;

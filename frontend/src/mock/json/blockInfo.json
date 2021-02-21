@@ -1,0 +1,18 @@
+{
+  "success": true,
+  "block": {
+    "id": "d91e8057e4886d1b4cbcb76ac2bb2496d628847322b3a77226b787e6fc0f5c01",
+    "version": 0,
+    "timestamp": 6932300,
+    "height": 295,
+    "previousBlock": "2220ce58a8d6dab150e7c5e2c1c478026b9e7881d5d153586f32a488ac557183",
+    "numberOfTransactions": 0,
+    "payloadLength": 0,
+    "payloadHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "generatorPublicKey": "edab611383d14c176453471b074d8e0ef981574db0ecd8e53e6a1451c0ca798c",
+    "generatorId": "SG9Mr9N6RnRJK8Cu6owo6p1fpvG9ykjTK6i",
+    "blockSignature": "c5bf8490f4fdb2410ea19a3f5d18c1af5d73fbcebe7ce3377e738f257c8d2f98c0d69602e53017db3a2f33513484f65bf6abd5feaedaef8da6728183a334c20e",
+    "confirmations": "10",
+    "totalForged": null
+  }
+}

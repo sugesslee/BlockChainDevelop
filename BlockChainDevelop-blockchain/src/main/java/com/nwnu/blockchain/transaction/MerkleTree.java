@@ -2,7 +2,7 @@ package com.nwnu.blockchain.transaction;
 
 
 import com.google.common.collect.Lists;
-import com.nwnu.blockchain.util.ByteUtil;
+import com.nwnu.blockchain.utils.ByteUtil;
 import lombok.Data;
 import org.apache.commons.codec.digest.DigestUtils;
 

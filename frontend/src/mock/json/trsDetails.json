@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "transaction": {
+    "id": "7fbf8fe47db1647ab73056a442c8d546fd7077260f68cd82843f981b9c281bd2",
+    "height": "2931",
+    "blockId": "d24829d02aab465e42a5903001ba7c355f3addeca426b8b8d789a8d3693c4565",
+    "type": 0,
+    "timestamp": 5518885,
+    "senderPublicKey": "b6215015d7f2d284b88fd5ff6eedfd5ce201ce1fbfead175be8649e1b580276f",
+    "senderId": "SG9b2h78WntH5Uc1k5rP95k3bsApgYEnF3h",
+    "senderName": "张三",
+    "recipientName": "李四",
+    "recipientId": "SGMSHJck2KF7ionMbXYk36FdRNESTHLLBnW",
+    "signature": "8d82ee76824d91323097740b17d8727b268611f01254fd6c935eaa6327c6430fd6ce950e80b63501cf5cd2ba15ff5186eef57b7f2e0b4b05fe39de2aa0df7b0d",
+    "signSignature": "8d3af1e991054c90d8378f13203a72505372ea4375283f83d6608d1898e3ea32eb9c94d0f2bc36edfeefd6486a3cff304ccffb2e65a6474af848df9e4b96140f",
+    "signatures": null,
+    "confirmations": "5339",
+    "args": null,
+    "message": "rsvPYQ4tP0UKmHRUcY7TZ4IbmE6KzLVO",
+    "asset": {}
+  }
+}

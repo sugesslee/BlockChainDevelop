@@ -6,11 +6,11 @@ spring:
 sqlite:
   dbName: block.db
 db:
-  levelDB: false
-  rocksDB: true
+  levelDB: true
+  rocksDB: false
 version: 1
 # 使用一个节点
 singeNode: ${SingeNode:true}
-name: ${NAME:test1}
-appId: ${APP_ID:test1}
-managerUrl: ${MANAGER_URL:http://202.201.48.69:8083/}
+name: ${NAME:name1}
+appId: ${APP_ID:app1}
+managerUrl: ${MANAGER_URL:http://192.168.1.10:8083/}

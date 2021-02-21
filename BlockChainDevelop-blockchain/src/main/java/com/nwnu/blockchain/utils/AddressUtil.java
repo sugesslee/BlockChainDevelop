@@ -1,4 +1,4 @@
-package com.nwnu.blockchain.util;
+package com.nwnu.blockchain.utils;
 
 import org.apache.commons.codec.digest.DigestUtils;
 //import org.bouncycastle.crypto.digests.RIPEMD160Digest;

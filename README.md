@@ -1,7 +1,7 @@
 # 区块链开发
 
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](./LICENSE)
-[![Build Status](https://travis-ci.org/redlix/BlockChainDevelop.svg?branch=master)](https://travis-ci.org/redlix/BlockChainDevelop)
+[![Build Status](https://travis-ci.com/rykerli/BlockChainDevelop.svg?branch=master)](https://www.travis-ci.com/github/rykerli/BlockChainDevelop)
 
 ## 文档
 

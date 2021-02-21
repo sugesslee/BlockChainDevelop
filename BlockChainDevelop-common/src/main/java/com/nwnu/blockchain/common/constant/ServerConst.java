@@ -25,7 +25,7 @@ public class ServerConst {
 	/**
 	 * 服务器分组名
 	 */
-	public static final String GROUP_NAME = "block_group";
+	public static final String GROUP_NAME = "group2";
 	/**
 	 * 心跳超时时间
 	 */

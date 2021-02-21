@@ -1,4 +1,4 @@
-package com.nwnu.blockchain.util;
+package com.nwnu.blockchain.utils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

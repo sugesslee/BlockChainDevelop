@@ -72,7 +72,7 @@ public class PreMsgQueue extends BaseMsgQueue {
 		}
 
 		//存入Pre集合中
-		log.info("blockConcurrentHashMap.put(hash: {}, votePreMsg: {})", hash, votePreMsg);
+//		log.info("blockConcurrentHashMap.put(hash: {}, votePreMsg: {})", hash, votePreMsg);
 		blockConcurrentHashMap.put(hash, votePreMsg);
 
 		//加入Prepare行列，推送给所有人
@@ -80,7 +80,7 @@ public class PreMsgQueue extends BaseMsgQueue {
 		BeanUtil.copyProperties(voteMsg, prepareMsg);
 		prepareMsg.setVoteType(VoteType.PREPARE);
 		prepareMsg.setAppId(AppId.value);
-		log.info("加入Prepare行列，推送给所有人, prepareMsg: {}", prepareMsg);
+//		log.info("加入Prepare行列，推送给所有人, prepareMsg: {}", prepareMsg);
 		eventPublisher.publishEvent(new MsgPrepareEvent(prepareMsg));
 	}
 

@@ -47,6 +47,18 @@ export function fetchTransactions(query) {
 }
 
 /**
+ * 获取溯源结果
+ * @param query
+ */
+ export function fetchTraceability(query) {
+  return request({
+    url: '/blockChain/traceabilityResult/',
+    method: 'get',
+    params: query
+  });
+}
+
+/**
  * 获取交易详情
  * @param query
  */

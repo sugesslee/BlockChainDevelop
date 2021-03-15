@@ -8,63 +8,63 @@ export function defaultValue(value) {
 
 const trsType = {
   0: {
-    name: '普通转账',
+    name: '零售商交易',
     class: 'blue'
   },
   1: {
-    name: '设置二级密码',
+    name: '药材生产',
     class: 'red'
   },
   2: {
-    name: '注册受托人',
+    name: '加工生产',
     class: 'color_delegate'
   },
   3: {
-    name: '共识投票',
+    name: '物流流通',
     class: 'color_vote'
   },
   4: {
-    name: '普通转账',
+    name: '药材生产',
     class: 'red'
   },
   5: {
-    name: '设置二级密码',
+    name: '药材生产',
     class: 'red'
   },
   6: {
-    name: '注册受托人',
+    name: '药材生产',
     class: 'red'
   },
   7: {
-    name: '注册受托人',
+    name: '药材生产',
     class: 'red'
   },
   8: {
-    name: '普通转账',
+    name: '药材生产',
     class: 'red'
   },
   9: {
-    name: '爱心组织',
+    name: '收购信息',
     class: 'color_uia_issuer'
   },
   10: {
-    name: '项目发起',
+    name: '加工生产',
     class: 'color_uia_asset'
   },
   11: {
-    name: '项目发起',
+    name: '加工生产',
     class: 'color_uia_asset'
   },
   12: {
-    name: '设置二级密码',
+    name: '加工生产',
     class: 'color_uia_asset'
   },
   13: {
-    name: '爱心流向',
+    name: '销售信息',
     class: 'color_uia_transfer'
   },
   14: {
-    name: '爱心流向',
+    name: '销售信息',
     class: 'color_uia_transfer'
   }
 };

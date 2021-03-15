@@ -13,4 +13,4 @@ version: 1
 singeNode: ${SingeNode:true}
 name: ${NAME:name1}
 appId: ${APP_ID:app1}
-managerUrl: ${MANAGER_URL:http://192.168.1.10:8083/}
+managerUrl: ${MANAGER_URL:http://140.143.245.186:8091/}

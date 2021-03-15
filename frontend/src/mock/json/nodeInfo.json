@@ -1,9 +1,10 @@
 {
   "success": true,
   "nodeInfo": {
-    "height": 12345,
-    "_24Trs": 541321,
-    "memCount": 2212,
-    "nodeCount": 10
+    "height": 7483,
+    "_24Trs": 8096,
+    "memCount": 100,
+    "normalNodeCount": 6,
+    "nodeCount": 6
   }
 }

@@ -70,7 +70,7 @@ public class DbBlockGenerator {
 		dbStore.put(Constants.KEY_LAST_BLOCK, hash);
 
 		log.info("本地已生成新的Block");
-
+		log.info("生成区块时间：{}", System.currentTimeMillis());
 		//同步到sqlite
 		sqliteSync();
 	}

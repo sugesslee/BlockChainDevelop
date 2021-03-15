@@ -19,7 +19,7 @@
           <span class="right">{{transition.timestamp | timestampFilter}}</span>
         </li>
         <li>
-          <span class="left">发送者</span>
+          <span class="left">发送方</span>
           <router-link class="right mark" :to="{name:'AddressDetail',params: { id: transition.senderId }}"
                        v-if="transition.senderId">
             {{this.defaultSender(transition)}}
@@ -30,7 +30,7 @@
         </li>
 
         <li>
-          <span class="left">接收者</span>
+          <span class="left">接收方</span>
           <router-link class="right mark" :to="{name:'AddressDetail',params: { id: transition.recipientId }}"
                        v-if="transition.recipientId">
             {{this.defaultRecipient(transition)}}
@@ -40,7 +40,7 @@
           </span>
         </li>
         <li>
-          <span class="left">交易金额</span>
+          <span class="left">交易量</span>
           <span class="right">{{transition.asset.amount|defaultValue}}</span>
         </li>
         <li>

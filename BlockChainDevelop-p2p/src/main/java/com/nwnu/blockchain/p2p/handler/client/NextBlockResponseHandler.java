@@ -31,12 +31,12 @@ public class NextBlockResponseHandler extends AbstractBlockHandler<RpcNextBlockB
 
 	@Override
 	public Object handler(BlockPacket packet, RpcNextBlockBody rpcBlockBody, ChannelContext channelContext) {
-		log.info("收到来自于<{}>的回复，下一个Block hash为：{}", rpcBlockBody.getAppId(), rpcBlockBody.getHash());
+//		log.info("收到来自于<{}>的回复，下一个Block hash为：{}", rpcBlockBody.getAppId(), rpcBlockBody.getHash());
 
 		String hash = rpcBlockBody.getHash();
 		//如果为null，说明对方根据我们传过去的hash，找不到next block。说明要么已经是最新了，要么对方的block比自己的少
 		if (hash == null) {
-			log.info("和<{}>相比，本地已是最新块了", rpcBlockBody.getAppId());
+//			log.info("和<{}>相比，本地已是最新块了", rpcBlockBody.getAppId());
 		} else {
 			BlockHash blockHash = new BlockHash(hash, rpcBlockBody.getPrevHash(), rpcBlockBody.getAppId());
 			//此处进行搜集next block的hash，相同的hash过2f+1时可以确认

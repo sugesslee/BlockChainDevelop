@@ -10,7 +10,7 @@
         <div class="right">
           <img src="static/img/name1.png">
           <p>
-            区块链查询优化技术研究及应用。
+            查询优化技术研究及应用。
           </p>
           <router-link :to="{path: '/project'}">
             <button class="btn">查看全部项目</button>

@@ -2,6 +2,7 @@ import Mock from 'mockjs';
 import nodeInfoApi from './nodeInfo';
 import blocksApi from './block';
 import trsApi from './trs';
+import tracApi from './trac';
 import project from './project'
 
 // Mock.setup({
@@ -16,6 +17,7 @@ Mock.mock(/\/blockChain\/transactionsDetails/, 'get', trsApi.fetchTransaction);
 Mock.mock(/\/blockChain\/projectList/, 'get', project.fetchProjectList);
 Mock.mock(/\/blockChain\/projectDetails/, 'get', project.fetchProjectDetails);
 Mock.mock(/\/blockChain\/addressDetails/, 'get', project.fetchAddressDetails());
+Mock.mock(/\/blockChain\/traceabilityResult\//, 'get', tracApi.fetchTraceability());
 Mock.mock(/\/blockChain\/search/, 'get', project.fetchSearch());
 
 export default Mock;

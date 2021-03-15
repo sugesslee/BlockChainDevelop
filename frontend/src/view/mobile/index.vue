@@ -2,7 +2,7 @@
   <div class="index">
     <div class="m-header">
       <div class="flex">
-        <router-link to="/m"><img src="/static/img/logo.png" class="icon-logo" alt=""></router-link>
+        <router-link to="/m"><img src="" class="icon-logo" alt=""></router-link>
         <img src="/static/img/search.png" class="icon-search" alt="" @click="showSearch">
         <img src="/static/img/menu.png" class="icon-menu" alt="" @click="showMenu">
       </div>
@@ -21,7 +21,7 @@
     </div>
     <router-view />
     <div class="m-footer">
-      <span>© 区块链查询优化技术研究及应用</span>
+      <span>© 查询优化技术研究及应用</span>
       <span>2018级硕士研究生</span>
     </div>
   </div>

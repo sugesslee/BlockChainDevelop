@@ -39,6 +39,11 @@ export default new Router({
       component: _import('addressDetail')
     },
     {
+      path: '/traceability/result/:id',
+      name: 'TraceabilityResult',
+      component: _import('traceabilityResult')
+    },
+    {
       path: '/asset',
       name: 'Asset',
       component: _import('asset')

@@ -10,10 +10,10 @@ import './assets/js/fontSize'
 
 Vue.prototype.$echarts = echarts
 
-//mock数据
-// if (process.env.ENV_CONFIG==='dev') {
-//   require('./mock')
-// }
+// mock数据
+if (process.env.ENV_CONFIG==='dev') {
+  require('./mock')
+}
 
 
 Vue.use(VueParticles);

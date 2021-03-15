@@ -5,10 +5,10 @@
         <img src="/static/img/type1.png">
         <span>最新交易</span>
       </div>
-      <!--<div class="right">-->
-      <!--<span>实时更新</span>-->
-      <!--<control-btn></control-btn>-->
-      <!--</div>-->
+        <!--<div class="right">-->
+        <!--<span>实时更新</span>-->
+        <!--<control-btn></control-btn>-->
+        <!--</div>-->
     </div>
     <div class="head2" v-show="defaultHead===2">该区块内交易</div>
     <div class="head3" v-show="defaultHead===3">用户交易记录</div>
@@ -19,9 +19,9 @@
           <th align="center" style="width:90px">交易类型</th>
           <th align="center" style="width:150px">时间</th>
           <th align="center" style="width:270px">交易ID</th>
-          <th align="center" style="width:190px">发送者</th>
-          <th align="center" style="width:190px">接收者</th>
-          <th align="center" style="width:90px">金额</th>
+          <th align="center" style="width:190px">发送方</th>
+          <th align="center" style="width:190px">接收方</th>
+          <th align="center" style="width:90px">交易量</th>
         </tr>
         <tr v-for="(item,index) in cellValue" :key="index">
 

@@ -36,7 +36,7 @@ public class GenerateBlockRequestHandler extends AbstractBlockHandler<RpcBlockBo
 	@Override
 	public Object handler(BlockPacket packet, RpcBlockBody rpcBlockBody, ChannelContext channelContext) {
 		Block block = rpcBlockBody.getBlock();
-		log.info("收到来自于<{}><请求生成Block>消息，block信息为[{}]", rpcBlockBody.getAppId(), block);
+//		log.info("收到来自于<{}><请求生成Block>消息，block信息为[{}]", rpcBlockBody.getAppId(), block);
 
 		CheckerManager checkerManager = ApplicationContextProvider.getBean(CheckerManager.class);
 		//对区块的基本信息进行校验，校验通过后进入pbft的Pre队列

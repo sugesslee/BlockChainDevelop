@@ -37,14 +37,14 @@ public class BlockServerAioListener implements ServerAioListener {
 
 	@Override
 	public void onAfterReceivedBytes(ChannelContext channelContext, int i) throws Exception {
-		log.info("onAfterReceived channelContext:{}, packet:{}, packetSize:{}", channelContext, i, i);
+//		log.info("onAfterReceived channelContext:{}, packet:{}, packetSize:{}", channelContext, i, i);
 	}
 
 
 	@Override
 	public void onAfterSent(ChannelContext channelContext, Packet packet, boolean isSentSuccess) {
-		log.info("onAfterSent channelContext:{}, packet:{}, isSentSuccess:{}", channelContext, Json.toJson(packet),
-				isSentSuccess);
+//		log.info("onAfterSent channelContext:{}, packet:{}, isSentSuccess:{}", channelContext, Json.toJson(packet),
+//				isSentSuccess);
 	}
 
 	@Override
